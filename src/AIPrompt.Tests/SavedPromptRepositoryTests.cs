@@ -52,6 +52,41 @@ public class SavedPromptRepositoryTests : IDisposable
         Assert.Equal(["Second", "First"], results.Select(prompt => prompt.Title));
     }
 
+    [Fact]
+    public async Task GetByIdAsync_ReturnsMatchingPrompt()
+    {
+        var created = await _repository.AddAsync(new SavedPromptModel { Title = "Mon prompt", FinalContent = "Contenu" });
+
+        var result = await _repository.GetByIdAsync(created.Id);
+
+        Assert.NotNull(result);
+        Assert.Equal("Mon prompt", result!.Title);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ModifiesExistingPrompt()
+    {
+        var created = await _repository.AddAsync(new SavedPromptModel { Title = "Original", FinalContent = "A" });
+        created.Title = "Updated";
+        created.FinalContent = "B";
+
+        await _repository.UpdateAsync(created);
+
+        var updated = await _repository.GetByIdAsync(created.Id);
+        Assert.Equal("Updated", updated!.Title);
+        Assert.Equal("B", updated.FinalContent);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_RemovesPrompt()
+    {
+        var created = await _repository.AddAsync(new SavedPromptModel { Title = "ToDelete", FinalContent = "A" });
+
+        await _repository.DeleteAsync(created.Id);
+
+        Assert.Null(await _repository.GetByIdAsync(created.Id));
+    }
+
     public void Dispose()
     {
         _context.Dispose();

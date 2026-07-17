@@ -9,4 +9,12 @@ public interface IDialogService
     void ShowCategoryManager(CategoryManagerViewModel viewModel);
 
     void ShowGenreManager(GenreManagerViewModel viewModel);
+
+    bool? ShowSavedPromptEditor(SavedPromptEditorViewModel viewModel);
+
+    bool ShowConfirmation(string title, string message);
+
+    string? ShowSaveFileDialog(string defaultFileName, string filter);
+
+    string? ShowFolderPicker(string? initialFolder);
 }

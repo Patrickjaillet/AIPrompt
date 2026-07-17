@@ -7,4 +7,10 @@ public interface ISavedPromptRepository
     Task<SavedPromptModel> AddAsync(SavedPromptModel model, CancellationToken cancellationToken = default);
 
     Task<IReadOnlyList<SavedPromptModel>> GetAllAsync(CancellationToken cancellationToken = default);
+
+    Task<SavedPromptModel?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+
+    Task UpdateAsync(SavedPromptModel model, CancellationToken cancellationToken = default);
+
+    Task DeleteAsync(int id, CancellationToken cancellationToken = default);
 }

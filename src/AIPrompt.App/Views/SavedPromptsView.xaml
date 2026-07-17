@@ -3,10 +3,79 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="Prompts sauvegardés"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:SavedPromptsViewModel}">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Prompts sauvegardés"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                   Margin="24" />
+                   Margin="0,0,0,16" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
+            <TextBox materialDesign:HintAssist.Hint="Rechercher"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     Width="220"
+                     Margin="0,0,16,0" />
+            <ComboBox ItemsSource="{Binding SortOptions}"
+                      SelectedItem="{Binding SortOption}"
+                      materialDesign:HintAssist.Hint="Trier par"
+                      Width="140"
+                      Margin="0,0,16,0" />
+            <Button Content="EXPORTER LA SÉLECTION"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding ExportSelectedCommand}" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="2"
+                  x:Name="PromptsDataGrid"
+                  ItemsSource="{Binding Prompts}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  SelectionMode="Extended"
+                  SelectionChanged="OnSelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Titre" Binding="{Binding Title}" Width="2*" />
+                <DataGridTextColumn Header="Catégorie" Binding="{Binding CategoryName}" Width="*" />
+                <DataGridTextColumn Header="Format" Binding="{Binding ExportFormat}" Width="Auto" />
+                <DataGridTextColumn Header="Mis à jour" Binding="{Binding UpdatedAt, StringFormat=dd/MM/yyyy HH:mm}" Width="Auto" />
+                <DataGridTemplateColumn Header="Actions" Width="380">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Modifier"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}" />
+                                <Button Content="Dupliquer"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.DuplicateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}" />
+                                <Button Content="Export .md"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.ExportMarkdownCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}" />
+                                <Button Content="Export .txt"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.ExportPlainTextCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}" />
+                                <Button Content="Supprimer"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

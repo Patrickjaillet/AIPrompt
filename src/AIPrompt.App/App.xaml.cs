@@ -33,7 +33,7 @@ public partial class App : Application
         var databasePath = Path.Combine(appDataDirectory, "aiprompt.db");
 
         var services = new ServiceCollection();
-        ConfigureServices(services, databasePath);
+        ConfigureServices(services, databasePath, appDataDirectory);
         _serviceProvider = services.BuildServiceProvider();
 
         var databaseInitializerService = _serviceProvider.GetRequiredService<IDatabaseInitializerService>();
@@ -52,7 +52,7 @@ public partial class App : Application
         base.OnExit(e);
     }
 
-    private static void ConfigureServices(IServiceCollection services, string databasePath)
+    private static void ConfigureServices(IServiceCollection services, string databasePath, string appDataDirectory)
     {
         services.AddDbContext<AIPromptDbContext>(options => options.UseSqlite($"Data Source={databasePath}"));
 
@@ -65,6 +65,8 @@ public partial class App : Application
 
         services.AddSingleton<ThemeService>();
         services.AddSingleton<IDialogService, DialogService>();
+        services.AddSingleton<PromptExportService>();
+        services.AddSingleton<ISettingsService>(_ => new SettingsService(appDataDirectory));
 
         services.AddSingleton<DashboardViewModel>();
         services.AddSingleton<TermLibraryViewModel>();

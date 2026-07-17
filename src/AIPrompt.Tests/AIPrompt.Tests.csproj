@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AIPrompt.Core\AIPrompt.Core.csproj" />
     <ProjectReference Include="..\AIPrompt.Data\AIPrompt.Data.csproj" />
+    <ProjectReference Include="..\AIPrompt.App\AIPrompt.App.csproj" />
   </ItemGroup>
 
 </Project>

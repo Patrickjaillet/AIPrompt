@@ -3,10 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="Paramètres"
-                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                   Margin="24" />
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}">
+    <Grid Margin="24">
+        <StackPanel>
+            <TextBlock Text="Paramètres"
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                       Margin="0,0,0,24" />
+
+            <TextBlock Text="Dossier d'export par défaut" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding DefaultExportFolder, Mode=OneWay}"
+                         IsReadOnly="True"
+                         Width="360"
+                         Margin="0,0,8,0" />
+                <Button Content="PARCOURIR"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{Binding BrowseExportFolderCommand}" />
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

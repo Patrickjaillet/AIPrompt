@@ -16,7 +16,13 @@ public class SavedPromptModel
 
     public int? SourceTemplateId { get; set; }
 
+    public string CategoryName { get; set; } = string.Empty;
+
     public PromptExportFormat ExportFormat { get; set; }
 
     public string? FilePath { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
 }

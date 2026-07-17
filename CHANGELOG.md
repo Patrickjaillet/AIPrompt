@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-07-17
+
+### Added
+
+- `SavedPromptsView`: searchable, sortable (date/title/category) list of saved prompts with per-row actions
+- In-place editing of a saved prompt via `SavedPromptEditorWindow`
+- Duplication of an existing saved prompt
+- Deletion with a Material Design confirmation dialog (`ConfirmationWindow`)
+- Unitary export to `.md` (heading + content) and `.txt` (Markdown stripped to plain text via Markdig), through the native `SaveFileDialog`
+- Bulk export of multi-selected prompts to a chosen folder via `Microsoft.Win32.OpenFolderDialog`
+- Default export folder setting, persisted to `%AppData%/AIPrompt/settings.json` via `ISettingsService`, with a first pass at the Settings screen
+- `PromptExportService` covered by unit tests for Markdown/plain-text conversion
+- Extended `ISavedPromptRepository` with `GetByIdAsync`, `UpdateAsync`, and `DeleteAsync`, all covered by unit tests
+
 ## [0.5.0] - 2026-07-17
 
 ### Added
