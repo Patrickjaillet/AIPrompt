@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-17
+
+### Added
+
+- AIPrompt logo: a purple gradient rounded tile with a white `>_` prompt glyph, generated at `assets/icons/aiprompt-logo.png`
+- Multi-resolution executable icon `assets/icons/aiprompt.ico` (16/32/48/64/128/256 px), wired via `<ApplicationIcon>`
+- Dedicated installer icon `assets/icons/aiprompt-installer.ico`, same design with a green download badge to distinguish it from the executable icon
+- Logo displayed in the About tab and in `README.md`
+
 ## [0.9.5] - 2026-07-17
 
 ### Added

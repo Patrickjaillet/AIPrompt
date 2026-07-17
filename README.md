@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/icons/aiprompt-logo.png" alt="Logo AIPrompt" width="128" height="128" />
+</p>
+
 # AIPrompt
 
 > Générateur, bibliothèque et assembleur de prompts IA — avec générateur intégré de fichiers `ROADMAP.md`

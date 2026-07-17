@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:AboutViewModel}">
@@ -14,11 +13,10 @@
                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                        Margin="0,0,0,24" />
 
-            <materialIcons:MaterialIcon Kind="RocketLaunchOutline"
-                                         Width="72" Height="72"
-                                         Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                         HorizontalAlignment="Left"
-                                         Margin="0,0,0,16" />
+            <Image Source="/Resources/aiprompt-logo.png"
+                   Width="72" Height="72"
+                   HorizontalAlignment="Left"
+                   Margin="0,0,0,16" />
 
             <TextBlock Text="{Binding ApplicationName}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,4" />
             <TextBlock Text="{Binding VersionText}" Margin="0,0,0,16" />

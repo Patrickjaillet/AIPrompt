@@ -21,7 +21,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>0.9.5</Version>
+    <Version>0.9.8</Version>
+    <ApplicationIcon>..\..\assets\icons\aiprompt.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +30,9 @@
       <Link>LICENSE.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="..\..\assets\icons\aiprompt-logo.png">
+      <Link>Resources\aiprompt-logo.png</Link>
+    </Resource>
   </ItemGroup>
 
 </Project>
