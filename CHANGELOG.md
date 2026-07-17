@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-07-17
+
+### Added
+
+- `ImportExportView`: full library export to `.json` (categories, genres, terms, templates, saved prompts, roadmap projects) and import from a `.json` file
+- Import mode choice (`ImportModeWindow`): merge (skip existing items by name/title) or overwrite (replace the entire library), backed by `IBackupService`
+- Periodic automatic backup (`IAutoBackupService`), configurable on/off and by interval in Import/Export, writing timestamped snapshots to `%AppData%/AIPrompt/backups` and pruning old files beyond the last 10
+- Restore from any listed automatic backup, with a confirmation dialog before overwriting the current library
+- `IBackupService` / `BackupService` covered by unit tests for export content and both merge/overwrite import paths
+
 ## [0.7.0] - 2026-07-17
 
 ### Added

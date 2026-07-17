@@ -3,10 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="Import / Export"
-                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                   Margin="24" />
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:ImportExportViewModel}">
+    <Grid Margin="24">
+        <StackPanel>
+            <TextBlock Text="Import / Export"
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                       Margin="0,0,0,24" />
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                <Button Content="EXPORTER LA BIBLIOTHÈQUE (.json)"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding ExportCommand}"
+                        Margin="0,0,8,0" />
+                <Button Content="IMPORTER DEPUIS UN FICHIER (.json)"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding ImportCommand}" />
+            </StackPanel>
+
+            <TextBlock Text="{Binding StatusMessage}" Margin="0,0,0,24" />
+
+            <TextBlock Text="Sauvegarde automatique" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,24">
+                <CheckBox Content="Activer la sauvegarde automatique périodique"
+                          IsChecked="{Binding AutoBackupEnabled}"
+                          VerticalAlignment="Center"
+                          Margin="0,0,16,0" />
+                <TextBox materialDesign:HintAssist.Hint="Intervalle (minutes)"
+                         Text="{Binding AutoBackupIntervalMinutes, UpdateSourceTrigger=PropertyChanged}"
+                         Width="140" />
+            </StackPanel>
+
+            <TextBlock Text="Sauvegardes disponibles" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <ListBox ItemsSource="{Binding BackupFiles}" Height="200" x:Name="BackupList">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="4">
+                            <TextBlock Text="{Binding}" Width="480" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                            <Button Content="Restaurer"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding DataContext.RestoreCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
     </Grid>
 </UserControl>

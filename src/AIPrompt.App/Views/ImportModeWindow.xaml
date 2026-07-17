@@ -1,0 +1,32 @@
+<Window x:Class="AIPrompt.App.Views.ImportModeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Name="Root"
+        Title="Mode d'import"
+        Width="440" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}">
+    <StackPanel Margin="24">
+        <TextBlock Text="Comment importer ces données ?" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12" />
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,24">
+            <Run Text="Fusionner : ajoute uniquement les éléments qui n'existent pas déjà (par nom/titre)." /><LineBreak />
+            <Run Text="Écraser : remplace intégralement la bibliothèque actuelle par le contenu du fichier." />
+        </TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="ANNULER"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="OnCancelClick"
+                    Margin="0,0,8,0" />
+            <Button Content="FUSIONNER"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="OnMergeClick"
+                    Margin="0,0,8,0" />
+            <Button Content="ÉCRASER"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="OnOverwriteClick" />
+        </StackPanel>
+    </StackPanel>
+</Window>

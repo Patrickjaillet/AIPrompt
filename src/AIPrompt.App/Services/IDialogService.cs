@@ -1,4 +1,5 @@
 using AIPrompt.App.ViewModels;
+using AIPrompt.Core.Models;
 
 namespace AIPrompt.App.Services;
 
@@ -16,5 +17,9 @@ public interface IDialogService
 
     string? ShowSaveFileDialog(string defaultFileName, string filter);
 
+    string? ShowOpenFileDialog(string filter);
+
     string? ShowFolderPicker(string? initialFolder);
+
+    ImportMode? ShowImportModeChoice();
 }

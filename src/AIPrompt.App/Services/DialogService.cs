@@ -1,6 +1,7 @@
 using System.Windows;
 using AIPrompt.App.ViewModels;
 using AIPrompt.App.Views;
+using AIPrompt.Core.Models;
 using Microsoft.Win32;
 
 namespace AIPrompt.App.Services;
@@ -76,5 +77,25 @@ public class DialogService : IDialogService
         };
 
         return dialog.ShowDialog() == true ? dialog.FolderName : null;
+    }
+
+    public string? ShowOpenFileDialog(string filter)
+    {
+        var dialog = new OpenFileDialog
+        {
+            Filter = filter
+        };
+
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
+    }
+
+    public ImportMode? ShowImportModeChoice()
+    {
+        var window = new ImportModeWindow
+        {
+            Owner = Application.Current.MainWindow
+        };
+
+        return window.ShowDialog() == true ? window.SelectedMode : null;
     }
 }
