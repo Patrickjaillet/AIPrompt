@@ -62,6 +62,7 @@ public partial class App : Application
         services.AddScoped<IPromptGenreRepository, PromptGenreRepository>();
         services.AddScoped<IPromptTemplateRepository, PromptTemplateRepository>();
         services.AddScoped<ISavedPromptRepository, SavedPromptRepository>();
+        services.AddScoped<IRoadmapProjectRepository, RoadmapProjectRepository>();
 
         services.AddSingleton<ThemeService>();
         services.AddSingleton<IDialogService, DialogService>();

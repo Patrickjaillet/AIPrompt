@@ -3,10 +3,141 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="Générateur de ROADMAP.md"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:RoadmapGeneratorViewModel}">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Générateur de ROADMAP.md"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                   Margin="24" />
+                   Margin="0,0,0,16" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
+            <TextBox materialDesign:HintAssist.Hint="Nom du projet"
+                     Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}"
+                     Width="200"
+                     Margin="0,0,16,0" />
+            <TextBox materialDesign:HintAssist.Hint="Description"
+                     Text="{Binding ProjectDescription, UpdateSourceTrigger=PropertyChanged}"
+                     Width="260"
+                     Margin="0,0,16,0" />
+            <Button Content="AJOUTER UNE PHASE"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding AddPhaseCommand}" />
+        </StackPanel>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.3*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Phases}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,12">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                        <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Width="220" Margin="0,0,8,0" />
+                                        <Button Content="▲"
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                Command="{Binding DataContext.MovePhaseUpCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}" />
+                                        <Button Content="▼"
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                Command="{Binding DataContext.MovePhaseDownCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}" />
+                                        <Button Content="Ajouter une tâche"
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                Command="{Binding AddTaskCommand}" />
+                                        <Button Content="Depuis bibliothèque"
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                Command="{Binding DataContext.AddTaskFromLibraryCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}" />
+                                        <Button Content="Supprimer la phase"
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                Command="{Binding DataContext.RemovePhaseCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}" />
+                                    </StackPanel>
+
+                                    <ItemsControl ItemsSource="{Binding Tasks}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Margin="16,2,0,2">
+                                                    <CheckBox IsChecked="{Binding IsChecked}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                                                    <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Width="280" Margin="0,0,8,0" />
+                                                    <Button Content="▲"
+                                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                                            Command="{Binding DataContext.MoveTaskUpCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                            CommandParameter="{Binding}" />
+                                                    <Button Content="▼"
+                                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                                            Command="{Binding DataContext.MoveTaskDownCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                            CommandParameter="{Binding}" />
+                                                    <Button Content="Supprimer"
+                                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                                            Command="{Binding DataContext.RemoveTaskCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                            CommandParameter="{Binding}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <StackPanel Grid.Column="2">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <ComboBox ItemsSource="{Binding LibraryTerms}"
+                              SelectedItem="{Binding SelectedLibraryTerm}"
+                              DisplayMemberPath="Content"
+                              materialDesign:HintAssist.Hint="Terme de la bibliothèque"
+                              Width="260" />
+                </StackPanel>
+
+                <TextBlock Text="Aperçu" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,8,0,8" />
+                <TextBox Text="{Binding PreviewMarkdown, Mode=OneWay}"
+                         IsReadOnly="True"
+                         FontFamily="Consolas"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         Height="320"
+                         VerticalScrollBarVisibility="Auto"
+                         Margin="0,0,0,16" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <Button Content="ENREGISTRER COMME TEMPLATE"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding SaveAsTemplateCommand}"
+                            Margin="0,0,8,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <ComboBox ItemsSource="{Binding SavedProjects}"
+                              SelectedItem="{Binding SelectedProjectToLoad}"
+                              DisplayMemberPath="ProjectName"
+                              Width="180"
+                              Margin="0,0,8,0" />
+                    <Button Content="CHARGER"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding LoadTemplateCommand}" />
+                </StackPanel>
+
+                <Button Content="EXPORTER ROADMAP.MD"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding ExportRoadmapCommand}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

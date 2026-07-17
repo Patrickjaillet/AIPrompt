@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-07-17
+
+### Added
+
+- `RoadmapGeneratorView`: project name/description fields, dynamically orderable phases and tasks with checkbox rendering
+- Real-time Markdown preview of the generated `ROADMAP.md` (headings, blockquote description, checkbox task lists)
+- Reuse of the term library to pre-fill roadmap tasks from existing phrases
+- Direct export to a `ROADMAP.md` file via the native `SaveFileDialog`
+- Reusable roadmap structures: saving and reloading a `RoadmapProject` as a template, mirroring the prompt builder's template pattern
+- `Description` field added to `RoadmapProject` (migration `AddRoadmapProjectDescription`)
+- `IRoadmapProjectRepository` and its EF Core implementation, covered by unit tests
+
 ## [0.6.0] - 2026-07-17
 
 ### Added

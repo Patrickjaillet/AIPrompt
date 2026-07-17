@@ -6,6 +6,8 @@ public class RoadmapProject
 
     public string ProjectName { get; set; } = string.Empty;
 
+    public string Description { get; set; } = string.Empty;
+
     public List<RoadmapPhase> Phases { get; set; } = new();
 
     public DateTime CreatedAt { get; set; }
