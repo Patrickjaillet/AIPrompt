@@ -1,0 +1,41 @@
+# ROADMAP.md is strictly local, never pushed to GitHub
+ROADMAP.md
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# NuGet
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+
+# Test results
+[Tt]est[Rr]esult*/
+*.trx
+
+# Local database & logs
+*.db
+*.db-shm
+*.db-wal
+*.log
+
+# Inno Setup output
+installer/Output/
+
+# OS files
+Thumbs.db
+.DS_Store
