@@ -1,9 +1,41 @@
-﻿<Application x:Class="AIPrompt.App.App"
+<Application x:Class="AIPrompt.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:AIPrompt.App"
-             StartupUri="MainWindow.xaml">
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             xmlns:views="clr-namespace:AIPrompt.App.Views">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModels:DashboardViewModel}">
+                <views:DashboardView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:TermLibraryViewModel}">
+                <views:TermLibraryView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:PromptBuilderViewModel}">
+                <views:PromptBuilderView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SavedPromptsViewModel}">
+                <views:SavedPromptsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:RoadmapGeneratorViewModel}">
+                <views:RoadmapGeneratorView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ImportExportViewModel}">
+                <views:ImportExportView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AboutViewModel}">
+                <views:AboutView />
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

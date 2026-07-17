@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-17
+
+### Added
+
+- `App.xaml` MaterialDesignThemes integration (`BundledTheme` + `MaterialDesign3.Defaults`) with light/dark theme support
+- `MainWindow` shell with a left-hand navigation rail covering all 8 functional modules and Material icons
+- Dependency injection container (`Microsoft.Extensions.DependencyInjection`) wiring the database, repositories, and view models
+- `ViewModelBase` and a `MainViewModel` driving navigation between placeholder views for each module
+- `ThemeService` toggling the light/dark base theme at runtime
+
 ## [0.2.0] - 2026-07-17
 
 ### Added

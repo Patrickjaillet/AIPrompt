@@ -13,6 +13,19 @@
 
 C# 12 / .NET 8 (LTS) / WPF / MaterialDesignInXamlToolkit / MVVM / SQLite + EF Core 8
 
+## Structure de l'application
+
+L'application s'organise en 8 modules accessibles depuis le rail de navigation principal :
+
+1. Accueil / Dashboard
+2. Bibliothèque de termes
+3. Assembleur de prompt
+4. Prompts sauvegardés
+5. Générateur de ROADMAP.md
+6. Import / Export
+7. Paramètres
+8. À propos
+
 ## Installation
 
 _À venir — l'installeur Windows sera publié à partir de la version `1.0.0-rc2`._
