@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.5] - 2026-07-17
+
+### Added
+
+- `AboutView`: application name, dynamically-read version, copyright, creator, and a placeholder logo icon (final artwork lands in Phase 10)
+- Clickable links for the contact email (`mailto:`), website, and GitHub repository, opened via the default OS handler
+- MIT license link opening the `LICENSE` file, now copied to the build output as `LICENSE.txt`
+- `<Version>` set on `AIPrompt.App.csproj`, read at runtime through assembly reflection rather than hardcoded
+
 ## [0.9.0] - 2026-07-17
 
 ### Added

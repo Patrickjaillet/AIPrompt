@@ -3,10 +3,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="À propos"
-                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                   Margin="24" />
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:AboutViewModel}">
+    <Grid Margin="24">
+        <StackPanel MaxWidth="480" HorizontalAlignment="Left">
+            <TextBlock Text="À propos"
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                       Margin="0,0,0,24" />
+
+            <materialIcons:MaterialIcon Kind="RocketLaunchOutline"
+                                         Width="72" Height="72"
+                                         Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                         HorizontalAlignment="Left"
+                                         Margin="0,0,0,16" />
+
+            <TextBlock Text="{Binding ApplicationName}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,4" />
+            <TextBlock Text="{Binding VersionText}" Margin="0,0,0,16" />
+
+            <TextBlock Text="{Binding CopyrightText}" TextWrapping="Wrap" Margin="0,0,0,24" />
+
+            <TextBlock Margin="0,0,0,8">
+                <Run Text="Creator: " FontWeight="Bold" />
+                <Run Text="{Binding CreatorName, Mode=OneWay}" />
+            </TextBlock>
+
+            <Button Content="{Binding Email}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding OpenEmailCommand}"
+                    HorizontalAlignment="Left"
+                    Padding="0"
+                    Margin="0,0,0,8" />
+
+            <Button Content="{Binding WebsiteUrl}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding OpenWebsiteCommand}"
+                    HorizontalAlignment="Left"
+                    Padding="0"
+                    Margin="0,0,0,8" />
+
+            <Button Content="{Binding RepositoryUrl}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding OpenRepositoryCommand}"
+                    HorizontalAlignment="Left"
+                    Padding="0"
+                    Margin="0,0,0,8" />
+
+            <Button Content="{Binding LicenseText}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding OpenLicenseCommand}"
+                    HorizontalAlignment="Left"
+                    Padding="0" />
+        </StackPanel>
     </Grid>
 </UserControl>
