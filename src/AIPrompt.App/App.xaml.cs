@@ -60,6 +60,8 @@ public partial class App : Application
         services.AddScoped<ITermPhraseRepository, TermPhraseRepository>();
         services.AddScoped<IPromptCategoryRepository, PromptCategoryRepository>();
         services.AddScoped<IPromptGenreRepository, PromptGenreRepository>();
+        services.AddScoped<IPromptTemplateRepository, PromptTemplateRepository>();
+        services.AddScoped<ISavedPromptRepository, SavedPromptRepository>();
 
         services.AddSingleton<ThemeService>();
         services.AddSingleton<IDialogService, DialogService>();

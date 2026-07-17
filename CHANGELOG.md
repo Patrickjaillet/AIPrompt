@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-17
+
+### Added
+
+- `PromptBuilderView`: two-panel prompt assembler with a filterable library on the left and an ordered assembly panel on the right
+- Drag-and-drop block reordering and library-to-assembly drops via `gong-wpf-dragdrop`, plus up/down buttons as an accessible alternative
+- Free-text blocks editable inline alongside library-sourced blocks
+- Real-time Markdown preview of the assembled prompt, validated through Markdig
+- Template save/reload (`PromptTemplate` + `PromptBlock`) so assemblies can be reused across sessions
+- "Générer le prompt final" action creating a `SavedPrompt` from the assembled content
+- `IPromptTemplateRepository`, `ISavedPromptRepository`, and their EF Core implementations, covered by unit tests
+
+### Fixed
+
+- `GongSolutions.WPF.DragDrop` referenced in `ROADMAP.md`/dependency list was not a real NuGet package; corrected to `gong-wpf-dragdrop`, its actual package ID
+
 ## [0.4.0] - 2026-07-17
 
 ### Added

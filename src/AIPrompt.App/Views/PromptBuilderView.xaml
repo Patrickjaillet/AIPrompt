@@ -3,10 +3,138 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="Assembleur de prompt"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.WPF.DragDrop"
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:PromptBuilderViewModel}">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Assembleur de prompt"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                   Margin="24" />
+                   Margin="0,0,0,16" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="1.4*" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0">
+                <TextBlock DockPanel.Dock="Top" Text="Bibliothèque" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBox materialDesign:HintAssist.Hint="Rechercher"
+                             Text="{Binding LibrarySearchText, UpdateSourceTrigger=PropertyChanged}"
+                             Width="160"
+                             Margin="0,0,8,0" />
+                    <ComboBox ItemsSource="{Binding CategoryFilters}"
+                              SelectedItem="{Binding SelectedCategoryFilter}"
+                              materialDesign:HintAssist.Hint="Catégorie"
+                              Width="140" />
+                </StackPanel>
+                <ListBox ItemsSource="{Binding LibraryTerms}"
+                         dd:DragDrop.IsDragSource="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="4">
+                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Width="180" />
+                                <Button Content="Ajouter"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.AddLibraryTermCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+
+            <DockPanel Grid.Column="2">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Assemblage" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Margin="0,0,16,0" />
+                    <Button Content="Ajouter texte libre"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding AddFreeTextBlockCommand}" />
+                </StackPanel>
+
+                <ListBox DockPanel.Dock="Top"
+                         ItemsSource="{Binding Blocks}"
+                         Height="220"
+                         dd:DragDrop.IsDragSource="True"
+                         dd:DragDrop.IsDropTarget="True"
+                         dd:DragDrop.DropHandler="{Binding}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="4">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="{Binding IsFreeText, Converter={StaticResource InverseBooleanConverter}}"
+                                             Width="280"
+                                             AcceptsReturn="True"
+                                             TextWrapping="Wrap" />
+                                    <Button Content="▲"
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            Command="{Binding DataContext.MoveBlockUpCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}" />
+                                    <Button Content="▼"
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            Command="{Binding DataContext.MoveBlockDownCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}" />
+                                    <Button Content="Supprimer"
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            Command="{Binding DataContext.RemoveBlockCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                            CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <TextBlock DockPanel.Dock="Top" Text="Aperçu" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,16,0,8" />
+                <TextBox DockPanel.Dock="Top"
+                         Text="{Binding PreviewMarkdown, Mode=OneWay}"
+                         IsReadOnly="True"
+                         FontFamily="Consolas"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         Height="120"
+                         VerticalScrollBarVisibility="Auto"
+                         Margin="0,0,0,16" />
+
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBox materialDesign:HintAssist.Hint="Titre du template / prompt"
+                             Text="{Binding TemplateTitle, UpdateSourceTrigger=PropertyChanged}"
+                             Width="220"
+                             Margin="0,0,8,0" />
+                    <ComboBox ItemsSource="{Binding CategoryFilters}"
+                              materialDesign:HintAssist.Hint="Catégorie du template"
+                              Width="160" />
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <Button Content="ENREGISTRER COMME TEMPLATE"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding SaveTemplateCommand}"
+                            Margin="0,0,8,0" />
+                    <ComboBox ItemsSource="{Binding Templates}"
+                              SelectedItem="{Binding SelectedTemplateToLoad}"
+                              DisplayMemberPath="Title"
+                              Width="180"
+                              Margin="0,0,8,0" />
+                    <Button Content="CHARGER"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding LoadTemplateCommand}"
+                            Margin="0,0,8,0" />
+                    <Button Content="GÉNÉRER LE PROMPT FINAL"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding GenerateFinalPromptCommand}" />
+                </StackPanel>
+            </DockPanel>
+        </Grid>
     </Grid>
 </UserControl>
