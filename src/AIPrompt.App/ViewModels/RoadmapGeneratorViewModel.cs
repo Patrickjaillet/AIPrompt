@@ -14,6 +14,7 @@ public partial class RoadmapGeneratorViewModel : ViewModelBase
     private readonly IRoadmapProjectRepository _roadmapProjectRepository;
     private readonly ITermPhraseRepository _termPhraseRepository;
     private readonly IDialogService _dialogService;
+    private readonly ISettingsService _settingsService;
 
     [ObservableProperty]
     private string _projectName = string.Empty;
@@ -33,11 +34,13 @@ public partial class RoadmapGeneratorViewModel : ViewModelBase
     public RoadmapGeneratorViewModel(
         IRoadmapProjectRepository roadmapProjectRepository,
         ITermPhraseRepository termPhraseRepository,
-        IDialogService dialogService)
+        IDialogService dialogService,
+        ISettingsService settingsService)
     {
         _roadmapProjectRepository = roadmapProjectRepository;
         _termPhraseRepository = termPhraseRepository;
         _dialogService = dialogService;
+        _settingsService = settingsService;
 
         Phases.CollectionChanged += (_, _) => RefreshPreview();
     }
@@ -162,7 +165,7 @@ public partial class RoadmapGeneratorViewModel : ViewModelBase
     [RelayCommand]
     private void ExportRoadmap()
     {
-        var path = _dialogService.ShowSaveFileDialog("ROADMAP.md", "Markdown (*.md)|*.md");
+        var path = _dialogService.ShowSaveFileDialog("ROADMAP.md", "Markdown (*.md)|*.md", _settingsService.DefaultRoadmapExportFolder);
         if (path is null)
         {
             return;

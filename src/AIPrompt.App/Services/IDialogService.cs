@@ -15,7 +15,7 @@ public interface IDialogService
 
     bool ShowConfirmation(string title, string message);
 
-    string? ShowSaveFileDialog(string defaultFileName, string filter);
+    string? ShowSaveFileDialog(string defaultFileName, string filter, string? initialDirectory = null);
 
     string? ShowOpenFileDialog(string filter);
 

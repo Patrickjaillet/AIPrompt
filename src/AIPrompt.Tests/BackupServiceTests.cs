@@ -117,6 +117,18 @@ public class BackupServiceTests : IDisposable
         Assert.Equal(2, await _context.TermPhrases.CountAsync());
     }
 
+    [Fact]
+    public async Task ResetDatabaseAsync_RemovesAllData()
+    {
+        await SeedBaseDataAsync();
+
+        await _backupService.ResetDatabaseAsync();
+
+        Assert.Equal(0, await _context.PromptCategories.CountAsync());
+        Assert.Equal(0, await _context.PromptGenres.CountAsync());
+        Assert.Equal(0, await _context.TermPhrases.CountAsync());
+    }
+
     public void Dispose()
     {
         _context.Dispose();

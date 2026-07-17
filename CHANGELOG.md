@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-07-17
+
+### Added
+
+- Theme selector (Light / Dark / System) in Settings, replacing the old ad-hoc toggle button, applied instantly and persisted
+- Accent color picker over the full Material Design swatch palette (10 colors), applied instantly and persisted
+- Interface language selector (FR / EN) backed by `.resx` resource files and `ILanguageService`, with a restart notice on change
+- Separate default export folders for prompts and roadmaps, plus a configurable backup folder, all wired into the corresponding export/backup flows
+- Database reset action in a "danger zone", requiring two sequential confirmations before wiping the library via `IBackupService.ResetDatabaseAsync`
+
+### Changed
+
+- Removed the standalone "Basculer thème clair / sombre" button from the navigation rail; theme is now controlled exclusively from Settings, avoiding an unpersisted duplicate control
+
 ## [0.8.0] - 2026-07-17
 
 ### Added

@@ -24,13 +24,6 @@
                     <TextBlock Text="AIPrompt" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
                 </StackPanel>
 
-                <Button DockPanel.Dock="Bottom"
-                        Margin="16"
-                        HorizontalAlignment="Left"
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        Command="{Binding ToggleThemeCommand}"
-                        Content="Basculer thème clair / sombre" />
-
                 <ListBox ItemsSource="{Binding NavigationItems}"
                          SelectedItem="{Binding SelectedNavigationItem}"
                          Background="Transparent"

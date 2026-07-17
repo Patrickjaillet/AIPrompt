@@ -101,7 +101,7 @@ public partial class SavedPromptsViewModel : ViewModelBase
     [RelayCommand]
     private async Task ExportMarkdownAsync(SavedPromptModel prompt)
     {
-        var path = _dialogService.ShowSaveFileDialog($"{prompt.Title}.md", "Markdown (*.md)|*.md");
+        var path = _dialogService.ShowSaveFileDialog($"{prompt.Title}.md", "Markdown (*.md)|*.md", _settingsService.DefaultExportFolder);
         if (path is null)
         {
             return;
@@ -113,7 +113,7 @@ public partial class SavedPromptsViewModel : ViewModelBase
     [RelayCommand]
     private async Task ExportPlainTextAsync(SavedPromptModel prompt)
     {
-        var path = _dialogService.ShowSaveFileDialog($"{prompt.Title}.txt", "Texte brut (*.txt)|*.txt");
+        var path = _dialogService.ShowSaveFileDialog($"{prompt.Title}.txt", "Texte brut (*.txt)|*.txt", _settingsService.DefaultExportFolder);
         if (path is null)
         {
             return;

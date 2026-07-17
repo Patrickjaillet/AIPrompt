@@ -110,7 +110,12 @@ public class BackupService : IBackupService
         }
     }
 
-    private async Task OverwriteImportAsync(DataBackupModel backup, CancellationToken cancellationToken)
+    public async Task ResetDatabaseAsync(CancellationToken cancellationToken = default)
+    {
+        await ClearAllDataAsync(cancellationToken);
+    }
+
+    private async Task ClearAllDataAsync(CancellationToken cancellationToken)
     {
         _context.SavedPrompts.RemoveRange(_context.SavedPrompts);
         _context.PromptTemplates.RemoveRange(_context.PromptTemplates);
@@ -119,6 +124,11 @@ public class BackupService : IBackupService
         _context.PromptGenres.RemoveRange(_context.PromptGenres);
         _context.PromptCategories.RemoveRange(_context.PromptCategories);
         await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    private async Task OverwriteImportAsync(DataBackupModel backup, CancellationToken cancellationToken)
+    {
+        await ClearAllDataAsync(cancellationToken);
 
         var categoryIdMap = new Dictionary<int, int>();
         foreach (var category in backup.Categories)

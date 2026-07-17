@@ -1,19 +1,14 @@
-using AIPrompt.App.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 
 namespace AIPrompt.App.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private readonly ThemeService _themeService;
-
     [ObservableProperty]
     private NavigationItem _selectedNavigationItem;
 
     public MainViewModel(
-        ThemeService themeService,
         DashboardViewModel dashboardViewModel,
         TermLibraryViewModel termLibraryViewModel,
         PromptBuilderViewModel promptBuilderViewModel,
@@ -23,8 +18,6 @@ public partial class MainViewModel : ViewModelBase
         SettingsViewModel settingsViewModel,
         AboutViewModel aboutViewModel)
     {
-        _themeService = themeService;
-
         NavigationItems =
         [
             new NavigationItem { Title = "Accueil", Icon = MaterialIconKind.ViewDashboard, ViewModel = dashboardViewModel },
@@ -41,10 +34,4 @@ public partial class MainViewModel : ViewModelBase
     }
 
     public List<NavigationItem> NavigationItems { get; }
-
-    [RelayCommand]
-    private void ToggleTheme()
-    {
-        _themeService.ToggleBaseTheme();
-    }
 }

@@ -58,12 +58,13 @@ public class DialogService : IDialogService
         return window.ShowDialog() == true;
     }
 
-    public string? ShowSaveFileDialog(string defaultFileName, string filter)
+    public string? ShowSaveFileDialog(string defaultFileName, string filter, string? initialDirectory = null)
     {
         var dialog = new SaveFileDialog
         {
             FileName = defaultFileName,
-            Filter = filter
+            Filter = filter,
+            InitialDirectory = initialDirectory ?? string.Empty
         };
 
         return dialog.ShowDialog() == true ? dialog.FileName : null;

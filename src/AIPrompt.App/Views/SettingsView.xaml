@@ -13,8 +13,29 @@
                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                        Margin="0,0,0,24" />
 
-            <TextBlock Text="Dossier d'export par défaut" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
-            <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Thème" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <ComboBox ItemsSource="{Binding ThemeModes}"
+                      SelectedItem="{Binding SelectedThemeMode}"
+                      Width="200"
+                      HorizontalAlignment="Left"
+                      Margin="0,0,0,24" />
+
+            <TextBlock Text="Couleur d'accent" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <ComboBox ItemsSource="{Binding AccentColors}"
+                      SelectedItem="{Binding SelectedAccentColor}"
+                      Width="200"
+                      HorizontalAlignment="Left"
+                      Margin="0,0,0,24" />
+
+            <TextBlock Text="Langue de l'interface" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <ComboBox ItemsSource="{Binding Languages}"
+                      SelectedItem="{Binding SelectedLanguage}"
+                      Width="200"
+                      HorizontalAlignment="Left" />
+            <TextBlock Text="{Binding LanguageNotice}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="0,4,0,24" />
+
+            <TextBlock Text="Dossier d'export par défaut (prompts)" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,24">
                 <TextBox Text="{Binding DefaultExportFolder, Mode=OneWay}"
                          IsReadOnly="True"
                          Width="360"
@@ -23,6 +44,34 @@
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Command="{Binding BrowseExportFolderCommand}" />
             </StackPanel>
+
+            <TextBlock Text="Dossier d'export par défaut (roadmaps)" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,24">
+                <TextBox Text="{Binding DefaultRoadmapExportFolder, Mode=OneWay}"
+                         IsReadOnly="True"
+                         Width="360"
+                         Margin="0,0,8,0" />
+                <Button Content="PARCOURIR"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{Binding BrowseRoadmapExportFolderCommand}" />
+            </StackPanel>
+
+            <TextBlock Text="Dossier de sauvegarde" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,24">
+                <TextBox Text="{Binding DefaultBackupFolder, Mode=OneWay}"
+                         IsReadOnly="True"
+                         Width="360"
+                         Margin="0,0,8,0" />
+                <Button Content="PARCOURIR"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{Binding BrowseBackupFolderCommand}" />
+            </StackPanel>
+
+            <TextBlock Text="Zone de danger" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <Button Content="RÉINITIALISER LA BASE DE DONNÉES"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding ResetDatabaseCommand}"
+                    HorizontalAlignment="Left" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -72,6 +72,7 @@ public partial class App : Application
         services.AddSingleton<PromptExportService>();
         services.AddSingleton<ISettingsService>(_ => new SettingsService(appDataDirectory));
         services.AddSingleton<IAutoBackupService, AutoBackupService>();
+        services.AddSingleton<ILanguageService, LanguageService>();
 
         services.AddSingleton<DashboardViewModel>();
         services.AddSingleton<TermLibraryViewModel>();
