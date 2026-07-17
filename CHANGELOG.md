@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.9] - 2026-07-17
+
+### Fixed
+
+- Interface language selector: switching language in Settings actually had no visible effect anywhere outside a couple of already-wired strings, because `SettingsViewModel.OnSelectedLanguageChanged` never called `ILanguageService.ApplyLanguage`. Nearly every screen, dialog, and ViewModel-built message is now driven through resx keys and a live-refresh `Loc` singleton, so a language switch applies instantly across the whole app
+- Fixed the interface reverting to French after the first navigation away from the screen that was visible during startup. `App.OnStartup` is invoked as a WPF dispatcher operation wrapped in a `CulturePreservingExecutionContext`, which snapshots the ambient thread culture when the operation is scheduled and restores that snapshot once it completes — silently undoing any `CultureInfo.CurrentUICulture` assignment made from inside `OnStartup`. The persisted language is now applied in `App`'s constructor, before `Application.Run()` starts, so no stale culture snapshot exists to revert to
+- Fixed a crash when opening the About screen (and, latently, the import-mode dialog): `Run.Text` defaults to a `TwoWay` binding in WPF, unlike `TextBlock.Text`, so binding it to the read-only `Loc.Instance` indexer threw `InvalidOperationException` and crashed the app. All `Run.Text` bindings to `Loc.Instance` now specify `Mode=OneWay`
+
 ## [0.9.8] - 2026-07-17
 
 ### Added

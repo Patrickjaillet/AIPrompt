@@ -17,5 +17,6 @@ public class LanguageService : ILanguageService
         var culture = new CultureInfo(cultureCode);
         CultureInfo.CurrentUICulture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
+        Loc.Instance.Refresh();
     }
 }

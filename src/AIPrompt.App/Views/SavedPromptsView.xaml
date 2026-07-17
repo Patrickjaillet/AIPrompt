@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             xmlns:services="clr-namespace:AIPrompt.App.Services"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:SavedPromptsViewModel}">
     <Grid Margin="24">
@@ -15,21 +16,21 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Text="Prompts sauvegardés"
+                   Text="{Binding [SavedPrompts_Title], Source={x:Static services:Loc.Instance}}"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    Margin="0,0,0,16" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
-            <TextBox materialDesign:HintAssist.Hint="Rechercher"
+            <TextBox materialDesign:HintAssist.Hint="{Binding [Common_Search], Source={x:Static services:Loc.Instance}}"
                      Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                      Width="220"
                      Margin="0,0,16,0" />
             <ComboBox ItemsSource="{Binding SortOptions}"
                       SelectedItem="{Binding SortOption}"
-                      materialDesign:HintAssist.Hint="Trier par"
+                      materialDesign:HintAssist.Hint="{Binding [SavedPrompts_SortHint], Source={x:Static services:Loc.Instance}}"
                       Width="140"
                       Margin="0,0,16,0" />
-            <Button Content="EXPORTER LA SÉLECTION"
+            <Button Content="{Binding [SavedPrompts_ExportSelected], Source={x:Static services:Loc.Instance}}"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Command="{Binding ExportSelectedCommand}" />
         </StackPanel>
@@ -43,31 +44,31 @@
                   SelectionMode="Extended"
                   SelectionChanged="OnSelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Titre" Binding="{Binding Title}" Width="2*" />
-                <DataGridTextColumn Header="Catégorie" Binding="{Binding CategoryName}" Width="*" />
-                <DataGridTextColumn Header="Format" Binding="{Binding ExportFormat}" Width="Auto" />
-                <DataGridTextColumn Header="Mis à jour" Binding="{Binding UpdatedAt, StringFormat=dd/MM/yyyy HH:mm}" Width="Auto" />
-                <DataGridTemplateColumn Header="Actions" Width="380">
+                <DataGridTextColumn Header="{Binding [SavedPrompts_ColumnTitle], Source={x:Static services:Loc.Instance}}" Binding="{Binding Title}" Width="2*" />
+                <DataGridTextColumn Header="{Binding [Common_Category], Source={x:Static services:Loc.Instance}}" Binding="{Binding CategoryName}" Width="*" />
+                <DataGridTextColumn Header="{Binding [SavedPrompts_ColumnFormat], Source={x:Static services:Loc.Instance}}" Binding="{Binding ExportFormat}" Width="Auto" />
+                <DataGridTextColumn Header="{Binding [SavedPrompts_ColumnUpdated], Source={x:Static services:Loc.Instance}}" Binding="{Binding UpdatedAt, StringFormat=dd/MM/yyyy HH:mm}" Width="Auto" />
+                <DataGridTemplateColumn Header="{Binding [Common_Actions], Source={x:Static services:Loc.Instance}}" Width="380">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="Modifier"
+                                <Button Content="{Binding [Common_Edit], Source={x:Static services:Loc.Instance}}"
                                         Style="{StaticResource MaterialDesignFlatButton}"
                                         Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         CommandParameter="{Binding}" />
-                                <Button Content="Dupliquer"
+                                <Button Content="{Binding [Common_Duplicate], Source={x:Static services:Loc.Instance}}"
                                         Style="{StaticResource MaterialDesignFlatButton}"
                                         Command="{Binding DataContext.DuplicateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         CommandParameter="{Binding}" />
-                                <Button Content="Export .md"
+                                <Button Content="{Binding [SavedPrompts_ExportMd], Source={x:Static services:Loc.Instance}}"
                                         Style="{StaticResource MaterialDesignFlatButton}"
                                         Command="{Binding DataContext.ExportMarkdownCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         CommandParameter="{Binding}" />
-                                <Button Content="Export .txt"
+                                <Button Content="{Binding [SavedPrompts_ExportTxt], Source={x:Static services:Loc.Instance}}"
                                         Style="{StaticResource MaterialDesignFlatButton}"
                                         Command="{Binding DataContext.ExportPlainTextCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         CommandParameter="{Binding}" />
-                                <Button Content="Supprimer"
+                                <Button Content="{Binding [Common_Delete], Source={x:Static services:Loc.Instance}}"
                                         Style="{StaticResource MaterialDesignFlatButton}"
                                         Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         CommandParameter="{Binding}" />

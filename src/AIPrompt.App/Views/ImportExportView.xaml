@@ -5,44 +5,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             xmlns:services="clr-namespace:AIPrompt.App.Services"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:ImportExportViewModel}">
     <Grid Margin="24">
         <StackPanel>
-            <TextBlock Text="Import / Export"
+            <TextBlock Text="{Binding [ImportExport_Title], Source={x:Static services:Loc.Instance}}"
                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                        Margin="0,0,0,24" />
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                <Button Content="EXPORTER LA BIBLIOTHÈQUE (.json)"
+                <Button Content="{Binding [ImportExport_Export], Source={x:Static services:Loc.Instance}}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding ExportCommand}"
                         Margin="0,0,8,0" />
-                <Button Content="IMPORTER DEPUIS UN FICHIER (.json)"
+                <Button Content="{Binding [ImportExport_Import], Source={x:Static services:Loc.Instance}}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding ImportCommand}" />
             </StackPanel>
 
             <TextBlock Text="{Binding StatusMessage}" Margin="0,0,0,24" />
 
-            <TextBlock Text="Sauvegarde automatique" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <TextBlock Text="{Binding [ImportExport_AutoBackup], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
             <StackPanel Orientation="Horizontal" Margin="0,0,0,24">
-                <CheckBox Content="Activer la sauvegarde automatique périodique"
+                <CheckBox Content="{Binding [ImportExport_EnableAutoBackup], Source={x:Static services:Loc.Instance}}"
                           IsChecked="{Binding AutoBackupEnabled}"
                           VerticalAlignment="Center"
                           Margin="0,0,16,0" />
-                <TextBox materialDesign:HintAssist.Hint="Intervalle (minutes)"
+                <TextBox materialDesign:HintAssist.Hint="{Binding [ImportExport_IntervalHint], Source={x:Static services:Loc.Instance}}"
                          Text="{Binding AutoBackupIntervalMinutes, UpdateSourceTrigger=PropertyChanged}"
                          Width="140" />
             </StackPanel>
 
-            <TextBlock Text="Sauvegardes disponibles" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <TextBlock Text="{Binding [ImportExport_AvailableBackups], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
             <ListBox ItemsSource="{Binding BackupFiles}" Height="200" x:Name="BackupList">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="4">
                             <TextBlock Text="{Binding}" Width="480" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
-                            <Button Content="Restaurer"
+                            <Button Content="{Binding [ImportExport_Restore], Source={x:Static services:Loc.Instance}}"
                                     Style="{StaticResource MaterialDesignFlatButton}"
                                     Command="{Binding DataContext.RestoreCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                     CommandParameter="{Binding}" />

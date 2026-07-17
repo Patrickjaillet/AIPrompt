@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:services="clr-namespace:AIPrompt.App.Services"
              mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="Accueil / Dashboard"
+        <TextBlock Text="{Binding [Dashboard_Title], Source={x:Static services:Loc.Instance}}"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    Margin="24" />
     </Grid>

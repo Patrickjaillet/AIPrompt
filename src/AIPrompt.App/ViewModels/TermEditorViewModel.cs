@@ -1,3 +1,4 @@
+using AIPrompt.App.Services;
 using AIPrompt.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -52,7 +53,7 @@ public partial class TermEditorViewModel : ViewModelBase
 
     public bool IsEditMode { get; }
 
-    public string DialogTitle => IsEditMode ? "Modifier le terme" : "Nouveau terme";
+    public string DialogTitle => Loc.Instance[IsEditMode ? "TermEditor_EditTitle" : "TermEditor_NewTitle"];
 
     public int ExistingId { get; }
 

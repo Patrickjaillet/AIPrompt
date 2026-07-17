@@ -14,6 +14,7 @@ public partial class SavedPromptsViewModel : ViewModelBase
     private readonly IDialogService _dialogService;
     private readonly PromptExportService _exportService;
     private readonly ISettingsService _settingsService;
+    private readonly ILanguageService _languageService;
 
     private List<SavedPromptModel> _allPrompts = [];
 
@@ -31,12 +32,14 @@ public partial class SavedPromptsViewModel : ViewModelBase
         ISavedPromptRepository savedPromptRepository,
         IDialogService dialogService,
         PromptExportService exportService,
-        ISettingsService settingsService)
+        ISettingsService settingsService,
+        ILanguageService languageService)
     {
         _savedPromptRepository = savedPromptRepository;
         _dialogService = dialogService;
         _exportService = exportService;
         _settingsService = settingsService;
+        _languageService = languageService;
     }
 
     public ObservableCollection<SavedPromptModel> Prompts { get; } = [];
@@ -86,8 +89,8 @@ public partial class SavedPromptsViewModel : ViewModelBase
     private async Task DeleteAsync(SavedPromptModel prompt)
     {
         var confirmed = _dialogService.ShowConfirmation(
-            "Supprimer le prompt",
-            $"Voulez-vous vraiment supprimer « {prompt.Title} » ? Cette action est irréversible.");
+            _languageService.GetString("Dialog_DeletePromptTitle"),
+            string.Format(_languageService.GetString("Dialog_DeletePromptMessage"), prompt.Title));
 
         if (!confirmed)
         {

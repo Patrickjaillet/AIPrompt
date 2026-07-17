@@ -5,8 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+        xmlns:services="clr-namespace:AIPrompt.App.Services"
         mc:Ignorable="d"
-        Title="Terme"
+        Title="{Binding [TermEditor_Title], Source={x:Static services:Loc.Instance}}"
         Width="480" SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -18,43 +19,43 @@
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                    Margin="0,0,0,16" />
 
-        <TextBox materialDesign:HintAssist.Hint="Contenu du terme"
+        <TextBox materialDesign:HintAssist.Hint="{Binding [TermEditor_ContentHint], Source={x:Static services:Loc.Instance}}"
                   Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
                   AcceptsReturn="True"
                   TextWrapping="Wrap"
                   Height="80"
                   Margin="0,0,0,16" />
 
-        <ComboBox materialDesign:HintAssist.Hint="Catégorie"
+        <ComboBox materialDesign:HintAssist.Hint="{Binding [Common_Category], Source={x:Static services:Loc.Instance}}"
                   ItemsSource="{Binding Categories}"
                   SelectedItem="{Binding SelectedCategory}"
                   DisplayMemberPath="Name"
                   Margin="0,0,0,16" />
 
-        <ComboBox materialDesign:HintAssist.Hint="Genre"
+        <ComboBox materialDesign:HintAssist.Hint="{Binding [Common_Genre], Source={x:Static services:Loc.Instance}}"
                   ItemsSource="{Binding Genres}"
                   SelectedItem="{Binding SelectedGenre}"
                   DisplayMemberPath="Name"
                   Margin="0,0,0,16" />
 
-        <ComboBox materialDesign:HintAssist.Hint="Tags (séparés par des virgules)"
+        <ComboBox materialDesign:HintAssist.Hint="{Binding [TermEditor_TagsHint], Source={x:Static services:Loc.Instance}}"
                   ItemsSource="{Binding AvailableTags}"
                   Text="{Binding Tags, UpdateSourceTrigger=PropertyChanged}"
                   IsEditable="True"
                   IsTextSearchEnabled="True"
                   Margin="0,0,0,16" />
 
-        <ComboBox materialDesign:HintAssist.Hint="Langue"
+        <ComboBox materialDesign:HintAssist.Hint="{Binding [TermEditor_LanguageHint], Source={x:Static services:Loc.Instance}}"
                   ItemsSource="{Binding Languages}"
                   SelectedItem="{Binding Language}"
                   Margin="0,0,0,24" />
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="ANNULER"
+            <Button Content="{Binding [Common_Cancel], Source={x:Static services:Loc.Instance}}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Command="{Binding CancelCommand}"
                     Margin="0,0,8,0" />
-            <Button Content="ENREGISTRER"
+            <Button Content="{Binding [Common_Save], Source={x:Static services:Loc.Instance}}"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Command="{Binding SaveCommand}" />
         </StackPanel>

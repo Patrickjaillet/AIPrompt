@@ -31,31 +31,138 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>Paramètres</value>
-  </data>
-  <data name="ThemeLabel" xml:space="preserve">
-    <value>Thème</value>
-  </data>
-  <data name="AccentColorLabel" xml:space="preserve">
-    <value>Couleur d'accent</value>
-  </data>
-  <data name="LanguageLabel" xml:space="preserve">
-    <value>Langue de l'interface</value>
-  </data>
-  <data name="DefaultExportFolderLabel" xml:space="preserve">
-    <value>Dossier d'export par défaut (prompts)</value>
-  </data>
-  <data name="DefaultRoadmapExportFolderLabel" xml:space="preserve">
-    <value>Dossier d'export par défaut (roadmaps)</value>
-  </data>
-  <data name="DefaultBackupFolderLabel" xml:space="preserve">
-    <value>Dossier de sauvegarde</value>
-  </data>
-  <data name="ResetDatabaseLabel" xml:space="preserve">
-    <value>Réinitialiser la base de données</value>
-  </data>
-  <data name="LanguageRestartNotice" xml:space="preserve">
-    <value>Redémarrez l'application pour appliquer la nouvelle langue.</value>
-  </data>
+
+  <data name="Common_Cancel" xml:space="preserve"><value>ANNULER</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>ENREGISTRER</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>SUPPRIMER</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>AJOUTER</value></data>
+  <data name="Common_Update" xml:space="preserve"><value>METTRE À JOUR</value></data>
+  <data name="Common_Search" xml:space="preserve"><value>Rechercher</value></data>
+  <data name="Common_Category" xml:space="preserve"><value>Catégorie</value></data>
+  <data name="Common_Genre" xml:space="preserve"><value>Genre</value></data>
+  <data name="Common_Language" xml:space="preserve"><value>Langue</value></data>
+  <data name="Common_Actions" xml:space="preserve"><value>Actions</value></data>
+  <data name="Common_Edit" xml:space="preserve"><value>Modifier</value></data>
+  <data name="Common_Duplicate" xml:space="preserve"><value>Dupliquer</value></data>
+  <data name="Common_Use" xml:space="preserve"><value>Utiliser</value></data>
+  <data name="Common_Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Common_Confirm" xml:space="preserve"><value>CONFIRMER</value></data>
+
+  <data name="Nav_Dashboard" xml:space="preserve"><value>Accueil</value></data>
+  <data name="Nav_TermLibrary" xml:space="preserve"><value>Bibliothèque de termes</value></data>
+  <data name="Nav_PromptBuilder" xml:space="preserve"><value>Assembleur de prompt</value></data>
+  <data name="Nav_SavedPrompts" xml:space="preserve"><value>Prompts sauvegardés</value></data>
+  <data name="Nav_RoadmapGenerator" xml:space="preserve"><value>Générateur de ROADMAP</value></data>
+  <data name="Nav_ImportExport" xml:space="preserve"><value>Import / Export</value></data>
+  <data name="Nav_Settings" xml:space="preserve"><value>Paramètres</value></data>
+  <data name="Nav_About" xml:space="preserve"><value>À propos</value></data>
+
+  <data name="Dashboard_Title" xml:space="preserve"><value>Accueil / Dashboard</value></data>
+
+  <data name="TermLibrary_Title" xml:space="preserve"><value>Bibliothèque de termes</value></data>
+  <data name="TermLibrary_AddTerm" xml:space="preserve"><value>AJOUTER UN TERME</value></data>
+  <data name="TermLibrary_Categories" xml:space="preserve"><value>CATÉGORIES</value></data>
+  <data name="TermLibrary_Genres" xml:space="preserve"><value>GENRES</value></data>
+  <data name="TermLibrary_ColumnContent" xml:space="preserve"><value>Contenu</value></data>
+  <data name="TermLibrary_ColumnTags" xml:space="preserve"><value>Tags</value></data>
+  <data name="TermLibrary_ColumnUsages" xml:space="preserve"><value>Usages</value></data>
+
+  <data name="TermEditor_Title" xml:space="preserve"><value>Terme</value></data>
+  <data name="TermEditor_ContentHint" xml:space="preserve"><value>Contenu du terme</value></data>
+  <data name="TermEditor_TagsHint" xml:space="preserve"><value>Tags (séparés par des virgules)</value></data>
+  <data name="TermEditor_LanguageHint" xml:space="preserve"><value>Langue</value></data>
+  <data name="TermEditor_NewTitle" xml:space="preserve"><value>Nouveau terme</value></data>
+  <data name="TermEditor_EditTitle" xml:space="preserve"><value>Modifier le terme</value></data>
+
+  <data name="CategoryManager_Title" xml:space="preserve"><value>Catégories</value></data>
+  <data name="CategoryManager_NameHint" xml:space="preserve"><value>Nom</value></data>
+  <data name="CategoryManager_IconHint" xml:space="preserve"><value>Clé icône Material Design</value></data>
+
+  <data name="GenreManager_Title" xml:space="preserve"><value>Genres</value></data>
+  <data name="GenreManager_NameHint" xml:space="preserve"><value>Nom</value></data>
+
+  <data name="PromptBuilder_Title" xml:space="preserve"><value>Assembleur de prompt</value></data>
+  <data name="PromptBuilder_LibraryLabel" xml:space="preserve"><value>Bibliothèque</value></data>
+  <data name="PromptBuilder_AddButton" xml:space="preserve"><value>Ajouter</value></data>
+  <data name="PromptBuilder_AssemblyLabel" xml:space="preserve"><value>Assemblage</value></data>
+  <data name="PromptBuilder_AddFreeText" xml:space="preserve"><value>Ajouter texte libre</value></data>
+  <data name="PromptBuilder_PreviewLabel" xml:space="preserve"><value>Aperçu</value></data>
+  <data name="PromptBuilder_TemplateTitleHint" xml:space="preserve"><value>Titre du template / prompt</value></data>
+  <data name="PromptBuilder_TemplateCategoryHint" xml:space="preserve"><value>Catégorie du template</value></data>
+  <data name="PromptBuilder_SaveTemplate" xml:space="preserve"><value>ENREGISTRER COMME TEMPLATE</value></data>
+  <data name="PromptBuilder_LoadTemplate" xml:space="preserve"><value>CHARGER</value></data>
+  <data name="PromptBuilder_GenerateFinal" xml:space="preserve"><value>GÉNÉRER LE PROMPT FINAL</value></data>
+
+  <data name="SavedPromptEditor_Title" xml:space="preserve"><value>Modifier le prompt</value></data>
+  <data name="SavedPromptEditor_TitleHint" xml:space="preserve"><value>Titre</value></data>
+  <data name="SavedPromptEditor_ContentHint" xml:space="preserve"><value>Contenu</value></data>
+
+  <data name="SavedPrompts_Title" xml:space="preserve"><value>Prompts sauvegardés</value></data>
+  <data name="SavedPrompts_SortHint" xml:space="preserve"><value>Trier par</value></data>
+  <data name="SavedPrompts_ExportSelected" xml:space="preserve"><value>EXPORTER LA SÉLECTION</value></data>
+  <data name="SavedPrompts_ColumnTitle" xml:space="preserve"><value>Titre</value></data>
+  <data name="SavedPrompts_ColumnFormat" xml:space="preserve"><value>Format</value></data>
+  <data name="SavedPrompts_ColumnUpdated" xml:space="preserve"><value>Mis à jour</value></data>
+  <data name="SavedPrompts_ExportMd" xml:space="preserve"><value>Export .md</value></data>
+  <data name="SavedPrompts_ExportTxt" xml:space="preserve"><value>Export .txt</value></data>
+  <data name="SavedPrompts_SortByDate" xml:space="preserve"><value>Date</value></data>
+  <data name="SavedPrompts_SortByTitle" xml:space="preserve"><value>Titre</value></data>
+  <data name="SavedPrompts_SortByCategory" xml:space="preserve"><value>Catégorie</value></data>
+
+  <data name="RoadmapGenerator_Title" xml:space="preserve"><value>Générateur de ROADMAP.md</value></data>
+  <data name="RoadmapGenerator_ProjectNameHint" xml:space="preserve"><value>Nom du projet</value></data>
+  <data name="RoadmapGenerator_AddPhase" xml:space="preserve"><value>AJOUTER UNE PHASE</value></data>
+  <data name="RoadmapGenerator_AddTask" xml:space="preserve"><value>Ajouter une tâche</value></data>
+  <data name="RoadmapGenerator_FromLibrary" xml:space="preserve"><value>Depuis bibliothèque</value></data>
+  <data name="RoadmapGenerator_RemovePhase" xml:space="preserve"><value>Supprimer la phase</value></data>
+  <data name="RoadmapGenerator_LibraryTermHint" xml:space="preserve"><value>Terme de la bibliothèque</value></data>
+  <data name="RoadmapGenerator_PreviewLabel" xml:space="preserve"><value>Aperçu</value></data>
+  <data name="RoadmapGenerator_SaveTemplate" xml:space="preserve"><value>ENREGISTRER COMME TEMPLATE</value></data>
+  <data name="RoadmapGenerator_LoadTemplate" xml:space="preserve"><value>CHARGER</value></data>
+  <data name="RoadmapGenerator_Export" xml:space="preserve"><value>EXPORTER ROADMAP.MD</value></data>
+
+  <data name="ImportMode_Title" xml:space="preserve"><value>Mode d'import</value></data>
+  <data name="ImportMode_Question" xml:space="preserve"><value>Comment importer ces données ?</value></data>
+  <data name="ImportMode_MergeExplanation" xml:space="preserve"><value>Fusionner : ajoute uniquement les éléments qui n'existent pas déjà (par nom/titre).</value></data>
+  <data name="ImportMode_OverwriteExplanation" xml:space="preserve"><value>Écraser : remplace intégralement la bibliothèque actuelle par le contenu du fichier.</value></data>
+  <data name="ImportMode_Merge" xml:space="preserve"><value>FUSIONNER</value></data>
+  <data name="ImportMode_Overwrite" xml:space="preserve"><value>ÉCRASER</value></data>
+
+  <data name="ImportExport_Title" xml:space="preserve"><value>Import / Export</value></data>
+  <data name="ImportExport_Export" xml:space="preserve"><value>EXPORTER LA BIBLIOTHÈQUE (.json)</value></data>
+  <data name="ImportExport_Import" xml:space="preserve"><value>IMPORTER DEPUIS UN FICHIER (.json)</value></data>
+  <data name="ImportExport_AutoBackup" xml:space="preserve"><value>Sauvegarde automatique</value></data>
+  <data name="ImportExport_EnableAutoBackup" xml:space="preserve"><value>Activer la sauvegarde automatique périodique</value></data>
+  <data name="ImportExport_IntervalHint" xml:space="preserve"><value>Intervalle (minutes)</value></data>
+  <data name="ImportExport_AvailableBackups" xml:space="preserve"><value>Sauvegardes disponibles</value></data>
+  <data name="ImportExport_Restore" xml:space="preserve"><value>Restaurer</value></data>
+  <data name="ImportExport_ExportedTo" xml:space="preserve"><value>Export réalisé vers {0}</value></data>
+  <data name="ImportExport_MergeSuccess" xml:space="preserve"><value>Import fusionné avec succès.</value></data>
+  <data name="ImportExport_OverwriteSuccess" xml:space="preserve"><value>Bibliothèque remplacée avec succès.</value></data>
+  <data name="ImportExport_RestoredFrom" xml:space="preserve"><value>Bibliothèque restaurée depuis {0}</value></data>
+
+  <data name="SettingsTitle" xml:space="preserve"><value>Paramètres</value></data>
+  <data name="ThemeLabel" xml:space="preserve"><value>Thème</value></data>
+  <data name="AccentColorLabel" xml:space="preserve"><value>Couleur d'accent</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>Langue de l'interface</value></data>
+  <data name="DefaultExportFolderLabel" xml:space="preserve"><value>Dossier d'export par défaut (prompts)</value></data>
+  <data name="DefaultRoadmapExportFolderLabel" xml:space="preserve"><value>Dossier d'export par défaut (roadmaps)</value></data>
+  <data name="DefaultBackupFolderLabel" xml:space="preserve"><value>Dossier de sauvegarde</value></data>
+  <data name="ResetDatabaseLabel" xml:space="preserve"><value>Réinitialiser la base de données</value></data>
+  <data name="Settings_DangerZone" xml:space="preserve"><value>Zone de danger</value></data>
+  <data name="Settings_Browse" xml:space="preserve"><value>PARCOURIR</value></data>
+  <data name="Settings_LanguageAppliedNotice" xml:space="preserve"><value>Langue appliquée.</value></data>
+  <data name="LanguageRestartNotice" xml:space="preserve"><value>Langue appliquée.</value></data>
+
+  <data name="About_Title" xml:space="preserve"><value>À propos</value></data>
+  <data name="About_CreatorLabel" xml:space="preserve"><value>Creator :</value></data>
+
+  <data name="Dialog_DeletePromptTitle" xml:space="preserve"><value>Supprimer le prompt</value></data>
+  <data name="Dialog_DeletePromptMessage" xml:space="preserve"><value>Voulez-vous vraiment supprimer « {0} » ? Cette action est irréversible.</value></data>
+  <data name="Dialog_ResetDbTitle" xml:space="preserve"><value>Réinitialiser la base de données</value></data>
+  <data name="Dialog_ResetDbMessage" xml:space="preserve"><value>Cette action supprime définitivement toute la bibliothèque (termes, prompts, roadmaps). Voulez-vous continuer ?</value></data>
+  <data name="Dialog_ResetDbFinalTitle" xml:space="preserve"><value>Confirmation finale</value></data>
+  <data name="Dialog_ResetDbFinalMessage" xml:space="preserve"><value>Dernière confirmation : la base de données va être vidée intégralement et cette action est irréversible. Confirmez-vous ?</value></data>
+  <data name="Dialog_RestoreBackupTitle" xml:space="preserve"><value>Restaurer la sauvegarde</value></data>
+  <data name="Dialog_RestoreBackupMessage" xml:space="preserve"><value>Voulez-vous restaurer « {0} » ? La bibliothèque actuelle sera intégralement remplacée.</value></data>
 </root>

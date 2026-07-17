@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             xmlns:services="clr-namespace:AIPrompt.App.Services"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:RoadmapGeneratorViewModel}">
     <Grid Margin="24">
@@ -15,20 +16,20 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Text="Générateur de ROADMAP.md"
+                   Text="{Binding [RoadmapGenerator_Title], Source={x:Static services:Loc.Instance}}"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    Margin="0,0,0,16" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
-            <TextBox materialDesign:HintAssist.Hint="Nom du projet"
+            <TextBox materialDesign:HintAssist.Hint="{Binding [RoadmapGenerator_ProjectNameHint], Source={x:Static services:Loc.Instance}}"
                      Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}"
                      Width="200"
                      Margin="0,0,16,0" />
-            <TextBox materialDesign:HintAssist.Hint="Description"
+            <TextBox materialDesign:HintAssist.Hint="{Binding [Common_Description], Source={x:Static services:Loc.Instance}}"
                      Text="{Binding ProjectDescription, UpdateSourceTrigger=PropertyChanged}"
                      Width="260"
                      Margin="0,0,16,0" />
-            <Button Content="AJOUTER UNE PHASE"
+            <Button Content="{Binding [RoadmapGenerator_AddPhase], Source={x:Static services:Loc.Instance}}"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Command="{Binding AddPhaseCommand}" />
         </StackPanel>
@@ -56,14 +57,14 @@
                                                 Style="{StaticResource MaterialDesignFlatButton}"
                                                 Command="{Binding DataContext.MovePhaseDownCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}" />
-                                        <Button Content="Ajouter une tâche"
+                                        <Button Content="{Binding [RoadmapGenerator_AddTask], Source={x:Static services:Loc.Instance}}"
                                                 Style="{StaticResource MaterialDesignFlatButton}"
                                                 Command="{Binding AddTaskCommand}" />
-                                        <Button Content="Depuis bibliothèque"
+                                        <Button Content="{Binding [RoadmapGenerator_FromLibrary], Source={x:Static services:Loc.Instance}}"
                                                 Style="{StaticResource MaterialDesignFlatButton}"
                                                 Command="{Binding DataContext.AddTaskFromLibraryCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}" />
-                                        <Button Content="Supprimer la phase"
+                                        <Button Content="{Binding [RoadmapGenerator_RemovePhase], Source={x:Static services:Loc.Instance}}"
                                                 Style="{StaticResource MaterialDesignFlatButton}"
                                                 Command="{Binding DataContext.RemovePhaseCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}" />
@@ -83,7 +84,7 @@
                                                             Style="{StaticResource MaterialDesignFlatButton}"
                                                             Command="{Binding DataContext.MoveTaskDownCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                             CommandParameter="{Binding}" />
-                                                    <Button Content="Supprimer"
+                                                    <Button Content="{Binding [Common_Delete], Source={x:Static services:Loc.Instance}}"
                                                             Style="{StaticResource MaterialDesignFlatButton}"
                                                             Command="{Binding DataContext.RemoveTaskCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                             CommandParameter="{Binding}" />
@@ -103,11 +104,11 @@
                     <ComboBox ItemsSource="{Binding LibraryTerms}"
                               SelectedItem="{Binding SelectedLibraryTerm}"
                               DisplayMemberPath="Content"
-                              materialDesign:HintAssist.Hint="Terme de la bibliothèque"
+                              materialDesign:HintAssist.Hint="{Binding [RoadmapGenerator_LibraryTermHint], Source={x:Static services:Loc.Instance}}"
                               Width="260" />
                 </StackPanel>
 
-                <TextBlock Text="Aperçu" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,8,0,8" />
+                <TextBlock Text="{Binding [RoadmapGenerator_PreviewLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,8,0,8" />
                 <TextBox Text="{Binding PreviewMarkdown, Mode=OneWay}"
                          IsReadOnly="True"
                          FontFamily="Consolas"
@@ -118,7 +119,7 @@
                          Margin="0,0,0,16" />
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <Button Content="ENREGISTRER COMME TEMPLATE"
+                    <Button Content="{Binding [RoadmapGenerator_SaveTemplate], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Command="{Binding SaveAsTemplateCommand}"
                             Margin="0,0,8,0" />
@@ -129,12 +130,12 @@
                               DisplayMemberPath="ProjectName"
                               Width="180"
                               Margin="0,0,8,0" />
-                    <Button Content="CHARGER"
+                    <Button Content="{Binding [RoadmapGenerator_LoadTemplate], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Command="{Binding LoadTemplateCommand}" />
                 </StackPanel>
 
-                <Button Content="EXPORTER ROADMAP.MD"
+                <Button Content="{Binding [RoadmapGenerator_Export], Source={x:Static services:Loc.Instance}}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding ExportRoadmapCommand}" />
             </StackPanel>

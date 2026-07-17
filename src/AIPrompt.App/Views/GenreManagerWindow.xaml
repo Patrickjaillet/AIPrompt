@@ -5,8 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+        xmlns:services="clr-namespace:AIPrompt.App.Services"
         mc:Ignorable="d"
-        Title="Genres"
+        Title="{Binding [GenreManager_Title], Source={x:Static services:Loc.Instance}}"
         Width="520" Height="440"
         WindowStartupLocation="CenterOwner"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -26,19 +27,19 @@
                  DisplayMemberPath="Name" />
 
         <StackPanel Grid.Column="2">
-            <TextBox materialDesign:HintAssist.Hint="Nom"
+            <TextBox materialDesign:HintAssist.Hint="{Binding [GenreManager_NameHint], Source={x:Static services:Loc.Instance}}"
                      Text="{Binding EditingName, UpdateSourceTrigger=PropertyChanged}"
                      Margin="0,0,0,16" />
-            <TextBox materialDesign:HintAssist.Hint="Description"
+            <TextBox materialDesign:HintAssist.Hint="{Binding [Common_Description], Source={x:Static services:Loc.Instance}}"
                      Text="{Binding EditingDescription, UpdateSourceTrigger=PropertyChanged}"
                      AcceptsReturn="True"
                      Height="60"
                      TextWrapping="Wrap"
                      Margin="0,0,0,16" />
 
-            <Button Content="AJOUTER" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding AddCommand}" Margin="0,0,0,8" />
-            <Button Content="METTRE À JOUR" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCommand}" Margin="0,0,0,8" />
-            <Button Content="SUPPRIMER" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding DeleteCommand}" />
+            <Button Content="{Binding [Common_Add], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding AddCommand}" Margin="0,0,0,8" />
+            <Button Content="{Binding [Common_Update], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCommand}" Margin="0,0,0,8" />
+            <Button Content="{Binding [Common_Delete], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding DeleteCommand}" />
         </StackPanel>
     </Grid>
 </Window>

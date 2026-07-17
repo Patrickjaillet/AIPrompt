@@ -5,8 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+        xmlns:services="clr-namespace:AIPrompt.App.Services"
         mc:Ignorable="d"
-        Title="Modifier le prompt"
+        Title="{Binding [SavedPromptEditor_Title], Source={x:Static services:Loc.Instance}}"
         Width="560" Height="480"
         WindowStartupLocation="CenterOwner"
         FontFamily="{materialDesign:MaterialDesignFont}"
@@ -21,12 +22,12 @@
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0"
-                 materialDesign:HintAssist.Hint="Titre"
+                 materialDesign:HintAssist.Hint="{Binding [SavedPromptEditor_TitleHint], Source={x:Static services:Loc.Instance}}"
                  Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
                  Margin="0,0,0,16" />
 
         <TextBox Grid.Row="1"
-                 materialDesign:HintAssist.Hint="Contenu"
+                 materialDesign:HintAssist.Hint="{Binding [SavedPromptEditor_ContentHint], Source={x:Static services:Loc.Instance}}"
                  Text="{Binding FinalContent, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
@@ -35,11 +36,11 @@
                  Margin="0,0,0,16" />
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="ANNULER"
+            <Button Content="{Binding [Common_Cancel], Source={x:Static services:Loc.Instance}}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Command="{Binding CancelCommand}"
                     Margin="0,0,8,0" />
-            <Button Content="ENREGISTRER"
+            <Button Content="{Binding [Common_Save], Source={x:Static services:Loc.Instance}}"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Command="{Binding SaveCommand}" />
         </StackPanel>

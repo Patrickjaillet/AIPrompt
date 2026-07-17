@@ -89,13 +89,15 @@ public partial class SettingsViewModel : ViewModelBase
 
     partial void OnSelectedLanguageChanged(string value)
     {
+        _languageService.ApplyLanguage(value);
+
         if (_isInitializing)
         {
             return;
         }
 
         _ = _settingsService.SetLanguageAsync(value);
-        LanguageNotice = _languageService.GetString("LanguageRestartNotice");
+        LanguageNotice = _languageService.GetString("Settings_LanguageAppliedNotice");
     }
 
     [RelayCommand]
@@ -141,8 +143,8 @@ public partial class SettingsViewModel : ViewModelBase
     private async Task ResetDatabaseAsync()
     {
         var firstConfirm = _dialogService.ShowConfirmation(
-            "Réinitialiser la base de données",
-            "Cette action supprime définitivement toute la bibliothèque (termes, prompts, roadmaps). Voulez-vous continuer ?");
+            _languageService.GetString("Dialog_ResetDbTitle"),
+            _languageService.GetString("Dialog_ResetDbMessage"));
 
         if (!firstConfirm)
         {
@@ -150,8 +152,8 @@ public partial class SettingsViewModel : ViewModelBase
         }
 
         var secondConfirm = _dialogService.ShowConfirmation(
-            "Confirmation finale",
-            "Dernière confirmation : la base de données va être vidée intégralement et cette action est irréversible. Confirmez-vous ?");
+            _languageService.GetString("Dialog_ResetDbFinalTitle"),
+            _languageService.GetString("Dialog_ResetDbFinalMessage"));
 
         if (!secondConfirm)
         {

@@ -14,6 +14,7 @@ public partial class ImportExportViewModel : ViewModelBase
     private readonly IDialogService _dialogService;
     private readonly ISettingsService _settingsService;
     private readonly IAutoBackupService _autoBackupService;
+    private readonly ILanguageService _languageService;
 
     [ObservableProperty]
     private bool _autoBackupEnabled;
@@ -28,12 +29,14 @@ public partial class ImportExportViewModel : ViewModelBase
         IBackupService backupService,
         IDialogService dialogService,
         ISettingsService settingsService,
-        IAutoBackupService autoBackupService)
+        IAutoBackupService autoBackupService,
+        ILanguageService languageService)
     {
         _backupService = backupService;
         _dialogService = dialogService;
         _settingsService = settingsService;
         _autoBackupService = autoBackupService;
+        _languageService = languageService;
 
         _autoBackupEnabled = settingsService.AutoBackupEnabled;
         _autoBackupIntervalMinutes = settingsService.AutoBackupIntervalMinutes;
@@ -70,7 +73,7 @@ public partial class ImportExportViewModel : ViewModelBase
 
         var json = await _backupService.ExportToJsonAsync();
         await File.WriteAllTextAsync(path, json);
-        StatusMessage = $"Export réalisé vers {path}";
+        StatusMessage = string.Format(_languageService.GetString("ImportExport_ExportedTo"), path);
     }
 
     [RelayCommand]
@@ -91,16 +94,16 @@ public partial class ImportExportViewModel : ViewModelBase
         var json = await File.ReadAllTextAsync(path);
         await _backupService.ImportFromJsonAsync(json, mode.Value);
         StatusMessage = mode == ImportMode.Merge
-            ? "Import fusionné avec succès."
-            : "Bibliothèque remplacée avec succès.";
+            ? _languageService.GetString("ImportExport_MergeSuccess")
+            : _languageService.GetString("ImportExport_OverwriteSuccess");
     }
 
     [RelayCommand]
     private async Task RestoreAsync(string backupFilePath)
     {
         var confirmed = _dialogService.ShowConfirmation(
-            "Restaurer la sauvegarde",
-            $"Voulez-vous restaurer « {Path.GetFileName(backupFilePath)} » ? La bibliothèque actuelle sera intégralement remplacée.");
+            _languageService.GetString("Dialog_RestoreBackupTitle"),
+            string.Format(_languageService.GetString("Dialog_RestoreBackupMessage"), Path.GetFileName(backupFilePath)));
 
         if (!confirmed)
         {
@@ -109,6 +112,6 @@ public partial class ImportExportViewModel : ViewModelBase
 
         var json = await File.ReadAllTextAsync(backupFilePath);
         await _backupService.ImportFromJsonAsync(json, ImportMode.Overwrite);
-        StatusMessage = $"Bibliothèque restaurée depuis {Path.GetFileName(backupFilePath)}";
+        StatusMessage = string.Format(_languageService.GetString("ImportExport_RestoredFrom"), Path.GetFileName(backupFilePath));
     }
 }

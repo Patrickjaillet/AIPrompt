@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using AIPrompt.App.Services;
@@ -13,6 +14,19 @@ namespace AIPrompt.App;
 public partial class App : Application
 {
     private ServiceProvider? _serviceProvider;
+
+    public App()
+    {
+        var appDataDirectory = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "AIPrompt");
+
+        Directory.CreateDirectory(appDataDirectory);
+
+        var culture = new CultureInfo(new SettingsService(appDataDirectory).Language);
+        CultureInfo.CurrentUICulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+    }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -35,6 +49,8 @@ public partial class App : Application
         var services = new ServiceCollection();
         ConfigureServices(services, databasePath, appDataDirectory);
         _serviceProvider = services.BuildServiceProvider();
+
+        Loc.Instance.Initialize(_serviceProvider.GetRequiredService<ILanguageService>());
 
         var databaseInitializerService = _serviceProvider.GetRequiredService<IDatabaseInitializerService>();
         await databaseInitializerService.InitializeAsync();

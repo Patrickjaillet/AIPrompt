@@ -1,12 +1,26 @@
+using System.ComponentModel;
+using AIPrompt.App.Services;
 using Material.Icons;
 
 namespace AIPrompt.App.ViewModels;
 
-public class NavigationItem
+public class NavigationItem : INotifyPropertyChanged
 {
-    public required string Title { get; init; }
+    private readonly string _titleKey;
 
-    public required MaterialIconKind Icon { get; init; }
+    public NavigationItem(string titleKey, MaterialIconKind icon, ViewModelBase viewModel)
+    {
+        _titleKey = titleKey;
+        Icon = icon;
+        ViewModel = viewModel;
+        Loc.Instance.PropertyChanged += (_, _) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+    }
 
-    public required ViewModelBase ViewModel { get; init; }
+    public string Title => Loc.Instance[_titleKey];
+
+    public MaterialIconKind Icon { get; }
+
+    public ViewModelBase ViewModel { get; }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 }

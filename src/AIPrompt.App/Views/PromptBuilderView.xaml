@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.WPF.DragDrop"
              xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             xmlns:services="clr-namespace:AIPrompt.App.Services"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:PromptBuilderViewModel}">
     <Grid Margin="24">
@@ -15,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Text="Assembleur de prompt"
+                   Text="{Binding [PromptBuilder_Title], Source={x:Static services:Loc.Instance}}"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    Margin="0,0,0,16" />
 
@@ -27,15 +28,15 @@
             </Grid.ColumnDefinitions>
 
             <DockPanel Grid.Column="0">
-                <TextBlock DockPanel.Dock="Top" Text="Bibliothèque" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+                <TextBlock DockPanel.Dock="Top" Text="{Binding [PromptBuilder_LibraryLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBox materialDesign:HintAssist.Hint="Rechercher"
+                    <TextBox materialDesign:HintAssist.Hint="{Binding [Common_Search], Source={x:Static services:Loc.Instance}}"
                              Text="{Binding LibrarySearchText, UpdateSourceTrigger=PropertyChanged}"
                              Width="160"
                              Margin="0,0,8,0" />
                     <ComboBox ItemsSource="{Binding CategoryFilters}"
                               SelectedItem="{Binding SelectedCategoryFilter}"
-                              materialDesign:HintAssist.Hint="Catégorie"
+                              materialDesign:HintAssist.Hint="{Binding [Common_Category], Source={x:Static services:Loc.Instance}}"
                               Width="140" />
                 </StackPanel>
                 <ListBox ItemsSource="{Binding LibraryTerms}"
@@ -44,7 +45,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="4">
                                 <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Width="180" />
-                                <Button Content="Ajouter"
+                                <Button Content="{Binding [PromptBuilder_AddButton], Source={x:Static services:Loc.Instance}}"
                                         Style="{StaticResource MaterialDesignFlatButton}"
                                         Command="{Binding DataContext.AddLibraryTermCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                         CommandParameter="{Binding}" />
@@ -56,8 +57,8 @@
 
             <DockPanel Grid.Column="2">
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Assemblage" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Margin="0,0,16,0" />
-                    <Button Content="Ajouter texte libre"
+                    <TextBlock Text="{Binding [PromptBuilder_AssemblyLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Margin="0,0,16,0" />
+                    <Button Content="{Binding [PromptBuilder_AddFreeText], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Command="{Binding AddFreeTextBlockCommand}" />
                 </StackPanel>
@@ -85,7 +86,7 @@
                                             Style="{StaticResource MaterialDesignFlatButton}"
                                             Command="{Binding DataContext.MoveBlockDownCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}" />
-                                    <Button Content="Supprimer"
+                                    <Button Content="{Binding [Common_Delete], Source={x:Static services:Loc.Instance}}"
                                             Style="{StaticResource MaterialDesignFlatButton}"
                                             Command="{Binding DataContext.RemoveBlockCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}" />
@@ -95,7 +96,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <TextBlock DockPanel.Dock="Top" Text="Aperçu" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,16,0,8" />
+                <TextBlock DockPanel.Dock="Top" Text="{Binding [PromptBuilder_PreviewLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,16,0,8" />
                 <TextBox DockPanel.Dock="Top"
                          Text="{Binding PreviewMarkdown, Mode=OneWay}"
                          IsReadOnly="True"
@@ -107,17 +108,17 @@
                          Margin="0,0,0,16" />
 
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBox materialDesign:HintAssist.Hint="Titre du template / prompt"
+                    <TextBox materialDesign:HintAssist.Hint="{Binding [PromptBuilder_TemplateTitleHint], Source={x:Static services:Loc.Instance}}"
                              Text="{Binding TemplateTitle, UpdateSourceTrigger=PropertyChanged}"
                              Width="220"
                              Margin="0,0,8,0" />
                     <ComboBox ItemsSource="{Binding CategoryFilters}"
-                              materialDesign:HintAssist.Hint="Catégorie du template"
+                              materialDesign:HintAssist.Hint="{Binding [PromptBuilder_TemplateCategoryHint], Source={x:Static services:Loc.Instance}}"
                               Width="160" />
                 </StackPanel>
 
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                    <Button Content="ENREGISTRER COMME TEMPLATE"
+                    <Button Content="{Binding [PromptBuilder_SaveTemplate], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Command="{Binding SaveTemplateCommand}"
                             Margin="0,0,8,0" />
@@ -126,11 +127,11 @@
                               DisplayMemberPath="Title"
                               Width="180"
                               Margin="0,0,8,0" />
-                    <Button Content="CHARGER"
+                    <Button Content="{Binding [PromptBuilder_LoadTemplate], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Command="{Binding LoadTemplateCommand}"
                             Margin="0,0,8,0" />
-                    <Button Content="GÉNÉRER LE PROMPT FINAL"
+                    <Button Content="{Binding [PromptBuilder_GenerateFinal], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Command="{Binding GenerateFinalPromptCommand}" />
                 </StackPanel>

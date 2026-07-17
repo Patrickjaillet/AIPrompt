@@ -20,14 +20,14 @@ public partial class MainViewModel : ViewModelBase
     {
         NavigationItems =
         [
-            new NavigationItem { Title = "Accueil", Icon = MaterialIconKind.ViewDashboard, ViewModel = dashboardViewModel },
-            new NavigationItem { Title = "Bibliothèque de termes", Icon = MaterialIconKind.BookOpenVariant, ViewModel = termLibraryViewModel },
-            new NavigationItem { Title = "Assembleur de prompt", Icon = MaterialIconKind.PuzzleOutline, ViewModel = promptBuilderViewModel },
-            new NavigationItem { Title = "Prompts sauvegardés", Icon = MaterialIconKind.ContentSave, ViewModel = savedPromptsViewModel },
-            new NavigationItem { Title = "Générateur de ROADMAP", Icon = MaterialIconKind.MapMarkerPath, ViewModel = roadmapGeneratorViewModel },
-            new NavigationItem { Title = "Import / Export", Icon = MaterialIconKind.SwapHorizontal, ViewModel = importExportViewModel },
-            new NavigationItem { Title = "Paramètres", Icon = MaterialIconKind.Cog, ViewModel = settingsViewModel },
-            new NavigationItem { Title = "À propos", Icon = MaterialIconKind.InformationOutline, ViewModel = aboutViewModel }
+            new NavigationItem("Nav_Dashboard", MaterialIconKind.ViewDashboard, dashboardViewModel),
+            new NavigationItem("Nav_TermLibrary", MaterialIconKind.BookOpenVariant, termLibraryViewModel),
+            new NavigationItem("Nav_PromptBuilder", MaterialIconKind.PuzzleOutline, promptBuilderViewModel),
+            new NavigationItem("Nav_SavedPrompts", MaterialIconKind.ContentSave, savedPromptsViewModel),
+            new NavigationItem("Nav_RoadmapGenerator", MaterialIconKind.MapMarkerPath, roadmapGeneratorViewModel),
+            new NavigationItem("Nav_ImportExport", MaterialIconKind.SwapHorizontal, importExportViewModel),
+            new NavigationItem("Nav_Settings", MaterialIconKind.Cog, settingsViewModel),
+            new NavigationItem("Nav_About", MaterialIconKind.InformationOutline, aboutViewModel)
         ];
 
         _selectedNavigationItem = NavigationItems[0];
