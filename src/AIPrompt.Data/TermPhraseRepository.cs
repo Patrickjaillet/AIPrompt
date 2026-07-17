@@ -76,6 +76,20 @@ public class TermPhraseRepository : ITermPhraseRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task IncrementUsageAsync(int id, CancellationToken cancellationToken = default)
+    {
+        var entity = await _context.TermPhrases.FindAsync([id], cancellationToken);
+        if (entity is null)
+        {
+            return;
+        }
+
+        entity.UsageCount++;
+        entity.UpdatedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
     private static TermPhraseModel ToModel(TermPhrase entity)
     {
         return new TermPhraseModel

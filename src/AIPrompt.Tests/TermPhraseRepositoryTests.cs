@@ -119,6 +119,26 @@ public class TermPhraseRepositoryTests : IDisposable
         Assert.Equal(0, await _context.TermPhrases.CountAsync());
     }
 
+    [Fact]
+    public async Task IncrementUsageAsync_IncrementsUsageCount()
+    {
+        var added = await _repository.AddAsync(new TermPhraseModel { Content = "Content", CategoryId = CategoryId, GenreId = GenreId });
+
+        await _repository.IncrementUsageAsync(added.Id);
+        await _repository.IncrementUsageAsync(added.Id);
+
+        var updated = await _repository.GetByIdAsync(added.Id);
+        Assert.Equal(2, updated!.UsageCount);
+    }
+
+    [Fact]
+    public async Task IncrementUsageAsync_DoesNothing_WhenTermPhraseDoesNotExist()
+    {
+        await _repository.IncrementUsageAsync(999);
+
+        Assert.Equal(0, await _context.TermPhrases.CountAsync());
+    }
+
     public void Dispose()
     {
         _context.Dispose();

@@ -1,0 +1,62 @@
+<Window x:Class="AIPrompt.App.Views.TermEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+        mc:Ignorable="d"
+        Title="Terme"
+        Width="480" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        d:DataContext="{d:DesignInstance Type=viewModels:TermEditorViewModel}">
+    <StackPanel Margin="24">
+        <TextBlock Text="{Binding DialogTitle}"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   Margin="0,0,0,16" />
+
+        <TextBox materialDesign:HintAssist.Hint="Contenu du terme"
+                  Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                  AcceptsReturn="True"
+                  TextWrapping="Wrap"
+                  Height="80"
+                  Margin="0,0,0,16" />
+
+        <ComboBox materialDesign:HintAssist.Hint="Catégorie"
+                  ItemsSource="{Binding Categories}"
+                  SelectedItem="{Binding SelectedCategory}"
+                  DisplayMemberPath="Name"
+                  Margin="0,0,0,16" />
+
+        <ComboBox materialDesign:HintAssist.Hint="Genre"
+                  ItemsSource="{Binding Genres}"
+                  SelectedItem="{Binding SelectedGenre}"
+                  DisplayMemberPath="Name"
+                  Margin="0,0,0,16" />
+
+        <ComboBox materialDesign:HintAssist.Hint="Tags (séparés par des virgules)"
+                  ItemsSource="{Binding AvailableTags}"
+                  Text="{Binding Tags, UpdateSourceTrigger=PropertyChanged}"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"
+                  Margin="0,0,0,16" />
+
+        <ComboBox materialDesign:HintAssist.Hint="Langue"
+                  ItemsSource="{Binding Languages}"
+                  SelectedItem="{Binding Language}"
+                  Margin="0,0,0,24" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="ANNULER"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding CancelCommand}"
+                    Margin="0,0,8,0" />
+            <Button Content="ENREGISTRER"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding SaveCommand}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

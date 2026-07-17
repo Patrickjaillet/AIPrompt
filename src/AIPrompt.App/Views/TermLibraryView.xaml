@@ -3,10 +3,88 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="Bibliothèque de termes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:TermLibraryViewModel}">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Bibliothèque de termes"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                   Margin="24" />
+                   Margin="0,0,0,16" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
+            <TextBox materialDesign:HintAssist.Hint="Rechercher"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     Width="220"
+                     Margin="0,0,16,0" />
+            <ComboBox ItemsSource="{Binding CategoryFilters}"
+                      SelectedItem="{Binding SelectedCategoryFilter}"
+                      materialDesign:HintAssist.Hint="Catégorie"
+                      Width="160"
+                      Margin="0,0,16,0" />
+            <ComboBox ItemsSource="{Binding GenreFilters}"
+                      SelectedItem="{Binding SelectedGenreFilter}"
+                      materialDesign:HintAssist.Hint="Genre"
+                      Width="160"
+                      Margin="0,0,16,0" />
+            <ComboBox ItemsSource="{Binding LanguageFilters}"
+                      SelectedItem="{Binding SelectedLanguageFilter}"
+                      materialDesign:HintAssist.Hint="Langue"
+                      Width="100"
+                      Margin="0,0,16,0" />
+            <Button Content="AJOUTER UN TERME"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding AddTermCommand}"
+                    Margin="0,0,8,0" />
+            <Button Content="CATÉGORIES"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding ManageCategoriesCommand}"
+                    Margin="0,0,8,0" />
+            <Button Content="GENRES"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding ManageGenresCommand}" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding Terms}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Contenu" Binding="{Binding Content}" Width="3*" />
+                <DataGridTextColumn Header="Catégorie" Binding="{Binding CategoryName}" Width="*" />
+                <DataGridTextColumn Header="Genre" Binding="{Binding GenreName}" Width="*" />
+                <DataGridTextColumn Header="Tags" Binding="{Binding Tags}" Width="2*" />
+                <DataGridTextColumn Header="Langue" Binding="{Binding Language}" Width="Auto" />
+                <DataGridTextColumn Header="Usages" Binding="{Binding UsageCount}" Width="Auto" />
+                <DataGridTemplateColumn Header="Actions" Width="220">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Utiliser"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.MarkUsedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}" />
+                                <Button Content="Modifier"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.EditTermCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}" />
+                                <Button Content="Supprimer"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding DataContext.DeleteTermCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

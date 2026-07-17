@@ -13,4 +13,6 @@ public interface ITermPhraseRepository
     Task UpdateAsync(TermPhraseModel model, CancellationToken cancellationToken = default);
 
     Task DeleteAsync(int id, CancellationToken cancellationToken = default);
+
+    Task IncrementUsageAsync(int id, CancellationToken cancellationToken = default);
 }

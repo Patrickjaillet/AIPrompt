@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-17
+
+### Added
+
+- `TermLibraryView` with an instant-search DataGrid, category/genre/language filters, and per-row actions (use, edit, delete)
+- `TermEditorWindow` modal dialog for creating and editing terms, with an editable tag combo box for lightweight autocompletion
+- `CategoryManagerWindow` / `GenreManagerWindow` modals for full CRUD over categories and genres
+- `IPromptCategoryRepository`, `IPromptGenreRepository`, and their EF Core implementations, covered by unit tests
+- `ITermPhraseRepository.IncrementUsageAsync`, wired to a "use" action that increments `UsageCount`
+- `IDialogService` abstraction so view models can open modal windows without depending on WPF directly
+
+### Fixed
+
+- Category/genre/language filter combo boxes resetting their selection to `null` after the underlying `ObservableCollection` was cleared and repopulated, which silently filtered out every term in the library
+
 ## [0.3.0] - 2026-07-17
 
 ### Added

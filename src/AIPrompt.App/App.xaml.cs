@@ -58,8 +58,11 @@ public partial class App : Application
 
         services.AddScoped<IDatabaseInitializerService, DatabaseInitializerService>();
         services.AddScoped<ITermPhraseRepository, TermPhraseRepository>();
+        services.AddScoped<IPromptCategoryRepository, PromptCategoryRepository>();
+        services.AddScoped<IPromptGenreRepository, PromptGenreRepository>();
 
         services.AddSingleton<ThemeService>();
+        services.AddSingleton<IDialogService, DialogService>();
 
         services.AddSingleton<DashboardViewModel>();
         services.AddSingleton<TermLibraryViewModel>();
