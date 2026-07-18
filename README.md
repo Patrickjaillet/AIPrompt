@@ -40,7 +40,9 @@ Compatible Windows 10 et Windows 11 (x64), aucune dépendance externe requise (b
 
 ## Captures d'écran
 
-_À venir._
+| Thème sombre | Thème clair |
+|---|---|
+| ![Fenêtre principale, thème sombre](assets/screenshots/main-window-dark.png) | ![Fenêtre principale, thème clair](assets/screenshots/main-window-light.png) |
 
 ## Licence
 

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-07-18
+
+### Added
+
+- Final `README.md`: installation instructions and real application screenshots (dark/light theme)
+- `CONTRIBUTING.md`, `.github/ISSUE_TEMPLATE/bug_report.md`, `.github/ISSUE_TEMPLATE/feature_request.md`, `.github/CODEOWNERS`
+
+### Fixed
+
+- Removed a stray Claude AI co-author mention from the project's git history (rewrote and re-tagged `v0.9.9`, `v1.0.0-rc1`, `v1.0.0-rc2`) so no Claude/Anthropic reference remains anywhere in the source, files, or commit history
+
 ## [1.0.0-rc2] - 2026-07-18
 
 ### Added
