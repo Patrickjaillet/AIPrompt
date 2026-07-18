@@ -9,7 +9,7 @@ public partial class AboutViewModel : ViewModelBase
 {
     public string ApplicationName => "AIPrompt";
 
-    public string VersionText => $"Version {Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.0.0"}";
+    public string VersionText => $"Version {GetInformationalVersion()}";
 
     public string CopyrightText => "Copyright © 2026 SANDEFJORD DEVELOPMENT — All rights reserved";
 
@@ -42,5 +42,12 @@ public partial class AboutViewModel : ViewModelBase
     private static void OpenUrl(string target)
     {
         Process.Start(new ProcessStartInfo(target) { UseShellExecute = true });
+    }
+
+    private static string GetInformationalVersion()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        var informationalVersion = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        return informationalVersion ?? assembly.GetName().Version?.ToString(3) ?? "0.0.0";
     }
 }

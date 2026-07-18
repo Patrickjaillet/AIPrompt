@@ -7,4 +7,21 @@
     <UseWPF>false</UseWPF>
     <Platforms>x64</Platforms>
   </PropertyGroup>
+
+  <!--
+    Single source of truth for the product version: the repo-root VERSION file
+    (format MAJOR.MINOR.PATCH[-PRERELEASE]). scripts/build.ps1 increments PATCH
+    in that file on every local build. Pass /p:ProductVersionFull=X.Y.Z to override.
+  -->
+  <PropertyGroup>
+    <VersionFilePath>$(MSBuildThisFileDirectory)VERSION</VersionFilePath>
+    <ProductVersionFull Condition="'$(ProductVersionFull)' == '' And Exists('$(VersionFilePath)')">$([System.IO.File]::ReadAllText('$(VersionFilePath)').Trim())</ProductVersionFull>
+    <ProductVersionFull Condition="'$(ProductVersionFull)' == ''">0.0.0</ProductVersionFull>
+    <ProductVersionCore>$(ProductVersionFull.Split('-')[0])</ProductVersionCore>
+
+    <Version>$(ProductVersionFull)</Version>
+    <AssemblyVersion>$(ProductVersionCore).0</AssemblyVersion>
+    <FileVersion>$(ProductVersionCore).0</FileVersion>
+    <InformationalVersion>$(ProductVersionFull)</InformationalVersion>
+  </PropertyGroup>
 </Project>

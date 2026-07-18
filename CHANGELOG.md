@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc1] - 2026-07-18
+
+### Added
+
+- Single source of truth for the product version: the repo-root `VERSION` file (`MAJOR.MINOR.PATCH[-PRERELEASE]`), read by `Directory.Build.props` and projected into `Version`/`AssemblyVersion`/`FileVersion`/`InformationalVersion` for every project, replacing the hardcoded `<Version>` previously duplicated in `AIPrompt.App.csproj`
+- `scripts/build.ps1`: local build entry point that increments `PATCH` in `VERSION` before every build (`-NoIncrement` to skip), so local builds are always uniquely versioned without manual edits
+- `scripts/Sync-RoadmapVersions.ps1`: stamps each fully-checked Phase in `ROADMAP.md` with the git tag actually reached (`**Version atteinte : `vX.Y.Z`**`) and its date, read from existing tags — idempotent, safe to re-run after every tag
+
+### Changed
+
+- About tab now reads `AssemblyInformationalVersionAttribute` instead of the 3-part `AssemblyVersion`, so pre-release suffixes (e.g. `1.0.0-rc1`) are visible to the end user instead of being silently truncated to `1.0.0`
+
 ## [0.9.9] - 2026-07-17
 
 ### Fixed
