@@ -22,4 +22,6 @@ public interface IDialogService
     string? ShowFolderPicker(string? initialFolder);
 
     ImportMode? ShowImportModeChoice();
+
+    void ShowPresentationMode(string title, string markdownContent);
 }

@@ -11,6 +11,8 @@ namespace AIPrompt.App.ViewModels;
 public partial class ImportExportViewModel : ViewModelBase
 {
     private readonly IBackupService _backupService;
+    private readonly ITermPackService _termPackService;
+    private readonly IPromptCategoryRepository _categoryRepository;
     private readonly IDialogService _dialogService;
     private readonly ISettingsService _settingsService;
     private readonly IAutoBackupService _autoBackupService;
@@ -25,14 +27,24 @@ public partial class ImportExportViewModel : ViewModelBase
     [ObservableProperty]
     private string _statusMessage = string.Empty;
 
+    [ObservableProperty]
+    private PromptCategoryModel? _selectedExportPackCategory;
+
+    [ObservableProperty]
+    private string _exportPackName = string.Empty;
+
     public ImportExportViewModel(
         IBackupService backupService,
+        ITermPackService termPackService,
+        IPromptCategoryRepository categoryRepository,
         IDialogService dialogService,
         ISettingsService settingsService,
         IAutoBackupService autoBackupService,
         ILanguageService languageService)
     {
         _backupService = backupService;
+        _termPackService = termPackService;
+        _categoryRepository = categoryRepository;
         _dialogService = dialogService;
         _settingsService = settingsService;
         _autoBackupService = autoBackupService;
@@ -44,6 +56,8 @@ public partial class ImportExportViewModel : ViewModelBase
 
     public ObservableCollection<string> BackupFiles { get; } = [];
 
+    public ObservableCollection<PromptCategoryModel> ExportPackCategories { get; } = [];
+
     public void RefreshBackupFiles()
     {
         BackupFiles.Clear();
@@ -51,6 +65,16 @@ public partial class ImportExportViewModel : ViewModelBase
         {
             BackupFiles.Add(file);
         }
+    }
+
+    public async Task RefreshExportPackCategoriesAsync()
+    {
+        ExportPackCategories.Clear();
+        foreach (var category in await _categoryRepository.GetAllAsync())
+        {
+            ExportPackCategories.Add(category);
+        }
+        SelectedExportPackCategory ??= ExportPackCategories.FirstOrDefault();
     }
 
     partial void OnAutoBackupEnabledChanged(bool value) => ApplyAutoBackupSettings(value, AutoBackupIntervalMinutes);
@@ -113,5 +137,44 @@ public partial class ImportExportViewModel : ViewModelBase
         var json = await File.ReadAllTextAsync(backupFilePath);
         await _backupService.ImportFromJsonAsync(json, ImportMode.Overwrite);
         StatusMessage = string.Format(_languageService.GetString("ImportExport_RestoredFrom"), Path.GetFileName(backupFilePath));
+    }
+
+    [RelayCommand]
+    private async Task ImportTermPackAsync()
+    {
+        var path = _dialogService.ShowOpenFileDialog("JSON (*.json)|*.json");
+        if (path is null)
+        {
+            return;
+        }
+
+        var json = await File.ReadAllTextAsync(path);
+        var result = await _termPackService.ImportPackAsync(json);
+        StatusMessage = string.Format(
+            _languageService.GetString("ImportExport_PackImported"),
+            result.PackName,
+            result.CategoryName,
+            result.ImportedCount,
+            result.SkippedCount);
+    }
+
+    [RelayCommand]
+    private async Task ExportTermPackAsync()
+    {
+        if (SelectedExportPackCategory is null)
+        {
+            return;
+        }
+
+        var packName = string.IsNullOrWhiteSpace(ExportPackName) ? SelectedExportPackCategory.Name : ExportPackName;
+        var path = _dialogService.ShowSaveFileDialog($"{packName}.json", "JSON (*.json)|*.json");
+        if (path is null)
+        {
+            return;
+        }
+
+        var json = await _termPackService.ExportPackAsync(SelectedExportPackCategory.Id, packName);
+        await File.WriteAllTextAsync(path, json);
+        StatusMessage = string.Format(_languageService.GetString("ImportExport_PackExportedTo"), path);
     }
 }

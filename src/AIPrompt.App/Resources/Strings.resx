@@ -58,6 +58,13 @@
   <data name="Nav_About" xml:space="preserve"><value>À propos</value></data>
 
   <data name="Dashboard_Title" xml:space="preserve"><value>Accueil / Dashboard</value></data>
+  <data name="Dashboard_Categories" xml:space="preserve"><value>Catégories</value></data>
+  <data name="Dashboard_Genres" xml:space="preserve"><value>Genres</value></data>
+  <data name="Dashboard_Terms" xml:space="preserve"><value>Termes</value></data>
+  <data name="Dashboard_SavedPrompts" xml:space="preserve"><value>Prompts sauvegardés</value></data>
+  <data name="Dashboard_RoadmapProjects" xml:space="preserve"><value>Roadmaps</value></data>
+  <data name="Dashboard_TopCategories" xml:space="preserve"><value>Catégories les plus utilisées</value></data>
+  <data name="Dashboard_MostUsedTerms" xml:space="preserve"><value>Termes les plus utilisés</value></data>
 
   <data name="TermLibrary_Title" xml:space="preserve"><value>Bibliothèque de termes</value></data>
   <data name="TermLibrary_AddTerm" xml:space="preserve"><value>AJOUTER UN TERME</value></data>
@@ -92,6 +99,7 @@
   <data name="PromptBuilder_SaveTemplate" xml:space="preserve"><value>ENREGISTRER COMME TEMPLATE</value></data>
   <data name="PromptBuilder_LoadTemplate" xml:space="preserve"><value>CHARGER</value></data>
   <data name="PromptBuilder_GenerateFinal" xml:space="preserve"><value>GÉNÉRER LE PROMPT FINAL</value></data>
+  <data name="PromptBuilder_PresentationMode" xml:space="preserve"><value>MODE PRÉSENTATION</value></data>
 
   <data name="SavedPromptEditor_Title" xml:space="preserve"><value>Modifier le prompt</value></data>
   <data name="SavedPromptEditor_TitleHint" xml:space="preserve"><value>Titre</value></data>
@@ -120,6 +128,8 @@
   <data name="RoadmapGenerator_SaveTemplate" xml:space="preserve"><value>ENREGISTRER COMME TEMPLATE</value></data>
   <data name="RoadmapGenerator_LoadTemplate" xml:space="preserve"><value>CHARGER</value></data>
   <data name="RoadmapGenerator_Export" xml:space="preserve"><value>EXPORTER ROADMAP.MD</value></data>
+  <data name="RoadmapGenerator_ExportPdf" xml:space="preserve"><value>EXPORTER EN PDF</value></data>
+  <data name="RoadmapGenerator_PresentationMode" xml:space="preserve"><value>MODE PRÉSENTATION</value></data>
 
   <data name="ImportMode_Title" xml:space="preserve"><value>Mode d'import</value></data>
   <data name="ImportMode_Question" xml:space="preserve"><value>Comment importer ces données ?</value></data>
@@ -140,6 +150,13 @@
   <data name="ImportExport_MergeSuccess" xml:space="preserve"><value>Import fusionné avec succès.</value></data>
   <data name="ImportExport_OverwriteSuccess" xml:space="preserve"><value>Bibliothèque remplacée avec succès.</value></data>
   <data name="ImportExport_RestoredFrom" xml:space="preserve"><value>Bibliothèque restaurée depuis {0}</value></data>
+  <data name="ImportExport_TermPacks" xml:space="preserve"><value>Packs de termes</value></data>
+  <data name="ImportExport_ImportPack" xml:space="preserve"><value>IMPORTER UN PACK (.json)</value></data>
+  <data name="ImportExport_ExportPackNameHint" xml:space="preserve"><value>Nom du pack</value></data>
+  <data name="ImportExport_ExportPackCategoryHint" xml:space="preserve"><value>Catégorie à exporter</value></data>
+  <data name="ImportExport_ExportPack" xml:space="preserve"><value>EXPORTER LE PACK (.json)</value></data>
+  <data name="ImportExport_PackImported" xml:space="preserve"><value>Pack "{0}" importé dans la catégorie "{1}" : {2} terme(s) ajouté(s), {3} ignoré(s) (doublons)</value></data>
+  <data name="ImportExport_PackExportedTo" xml:space="preserve"><value>Pack exporté vers {0}</value></data>
 
   <data name="SettingsTitle" xml:space="preserve"><value>Paramètres</value></data>
   <data name="ThemeLabel" xml:space="preserve"><value>Thème</value></data>

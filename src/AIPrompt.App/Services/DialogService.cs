@@ -99,4 +99,14 @@ public class DialogService : IDialogService
 
         return window.ShowDialog() == true ? window.SelectedMode : null;
     }
+
+    public void ShowPresentationMode(string title, string markdownContent)
+    {
+        var window = new PresentationWindow(title, markdownContent)
+        {
+            Owner = Application.Current.MainWindow
+        };
+
+        window.Show();
+    }
 }

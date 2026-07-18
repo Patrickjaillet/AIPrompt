@@ -37,6 +37,28 @@
                          Width="140" />
             </StackPanel>
 
+            <TextBlock Text="{Binding [ImportExport_TermPacks], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <Button Content="{Binding [ImportExport_ImportPack], Source={x:Static services:Loc.Instance}}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding ImportTermPackCommand}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,24">
+                <ComboBox ItemsSource="{Binding ExportPackCategories}"
+                          SelectedItem="{Binding SelectedExportPackCategory}"
+                          DisplayMemberPath="Name"
+                          materialDesign:HintAssist.Hint="{Binding [ImportExport_ExportPackCategoryHint], Source={x:Static services:Loc.Instance}}"
+                          Width="220"
+                          Margin="0,0,8,0" />
+                <TextBox Text="{Binding ExportPackName, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="{Binding [ImportExport_ExportPackNameHint], Source={x:Static services:Loc.Instance}}"
+                         Width="180"
+                         Margin="0,0,8,0" />
+                <Button Content="{Binding [ImportExport_ExportPack], Source={x:Static services:Loc.Instance}}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding ExportTermPackCommand}" />
+            </StackPanel>
+
             <TextBlock Text="{Binding [ImportExport_AvailableBackups], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,8" />
             <ListBox ItemsSource="{Binding BackupFiles}" Height="200" x:Name="BackupList">
                 <ListBox.ItemTemplate>

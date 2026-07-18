@@ -32,6 +32,8 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
+        QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
         var appDataDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "AIPrompt");
@@ -82,10 +84,13 @@ public partial class App : Application
         services.AddScoped<ISavedPromptRepository, SavedPromptRepository>();
         services.AddScoped<IRoadmapProjectRepository, RoadmapProjectRepository>();
         services.AddScoped<IBackupService, BackupService>();
+        services.AddScoped<ITermPackService, TermPackService>();
+        services.AddScoped<IUsageStatsService, UsageStatsService>();
 
         services.AddSingleton<ThemeService>();
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<PromptExportService>();
+        services.AddSingleton<RoadmapPdfExportService>();
         services.AddSingleton<ISettingsService>(_ => new SettingsService(appDataDirectory));
         services.AddSingleton<IAutoBackupService, AutoBackupService>();
         services.AddSingleton<ILanguageService, LanguageService>();

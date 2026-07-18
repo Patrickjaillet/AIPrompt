@@ -3,11 +3,97 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
              xmlns:services="clr-namespace:AIPrompt.App.Services"
-             mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="{Binding [Dashboard_Title], Source={x:Static services:Loc.Instance}}"
-                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                   Margin="24" />
-    </Grid>
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:DashboardViewModel}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+            <TextBlock Text="{Binding [Dashboard_Title], Source={x:Static services:Loc.Instance}}"
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                       Margin="0,0,0,24" />
+
+            <WrapPanel Margin="0,0,0,24">
+                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,16,16" Width="160">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TotalCategories}" Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+                        <TextBlock Text="{Binding [Dashboard_Categories], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignCaptionTextBlock}" />
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,16,16" Width="160">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TotalGenres}" Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+                        <TextBlock Text="{Binding [Dashboard_Genres], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignCaptionTextBlock}" />
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,16,16" Width="160">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TotalTerms}" Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+                        <TextBlock Text="{Binding [Dashboard_Terms], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignCaptionTextBlock}" />
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,16,16" Width="160">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TotalSavedPrompts}" Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+                        <TextBlock Text="{Binding [Dashboard_SavedPrompts], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignCaptionTextBlock}" />
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1" CornerRadius="4" Padding="16" Margin="0,0,16,16" Width="160">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TotalRoadmapProjects}" Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+                        <TextBlock Text="{Binding [Dashboard_RoadmapProjects], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignCaptionTextBlock}" />
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="24" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{Binding [Dashboard_TopCategories], Source={x:Static services:Loc.Instance}}"
+                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                               Margin="0,0,0,8" />
+                    <ItemsControl ItemsSource="{Binding TopCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding CategoryName}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding UsageCount}" Opacity="0.7" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="{Binding [Dashboard_MostUsedTerms], Source={x:Static services:Loc.Instance}}"
+                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                               Margin="0,0,0,8" />
+                    <ItemsControl ItemsSource="{Binding MostUsedTerms}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Content}" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="1" Text="{Binding UsageCount}" Opacity="0.7" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

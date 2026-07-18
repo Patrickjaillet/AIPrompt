@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using AIPrompt.App.Services;
 using AIPrompt.Core.Interfaces;
 using AIPrompt.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -18,6 +19,7 @@ public partial class PromptBuilderViewModel : ViewModelBase, IDropTarget
     private readonly IPromptCategoryRepository _categoryRepository;
     private readonly IPromptTemplateRepository _templateRepository;
     private readonly ISavedPromptRepository _savedPromptRepository;
+    private readonly IDialogService _dialogService;
 
     private List<TermPhraseModel> _allLibraryTerms = [];
     private List<PromptCategoryModel> _categories = [];
@@ -44,12 +46,14 @@ public partial class PromptBuilderViewModel : ViewModelBase, IDropTarget
         ITermPhraseRepository termPhraseRepository,
         IPromptCategoryRepository categoryRepository,
         IPromptTemplateRepository templateRepository,
-        ISavedPromptRepository savedPromptRepository)
+        ISavedPromptRepository savedPromptRepository,
+        IDialogService dialogService)
     {
         _termPhraseRepository = termPhraseRepository;
         _categoryRepository = categoryRepository;
         _templateRepository = templateRepository;
         _savedPromptRepository = savedPromptRepository;
+        _dialogService = dialogService;
 
         Blocks.CollectionChanged += (_, _) => RefreshPreview();
     }
@@ -198,6 +202,18 @@ public partial class PromptBuilderViewModel : ViewModelBase, IDropTarget
             FinalContent = PreviewMarkdown,
             ExportFormat = PromptExportFormat.Markdown
         });
+    }
+
+    [RelayCommand]
+    private void EnterPresentationMode()
+    {
+        if (Blocks.Count == 0)
+        {
+            return;
+        }
+
+        var title = string.IsNullOrWhiteSpace(TemplateTitle) ? "Prompt" : TemplateTitle;
+        _dialogService.ShowPresentationMode(title, PreviewMarkdown);
     }
 
     public void DragOver(IDropInfo dropInfo)

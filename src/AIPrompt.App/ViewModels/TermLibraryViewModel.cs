@@ -58,13 +58,13 @@ public partial class TermLibraryViewModel : ViewModelBase
         await ReloadTermsAsync();
     }
 
-    partial void OnSearchTextChanged(string value) => ApplyFilters();
+    partial void OnSearchTextChanged(string value) => _ = ApplyFiltersAsync();
 
-    partial void OnSelectedCategoryFilterChanged(string value) => ApplyFilters();
+    partial void OnSelectedCategoryFilterChanged(string value) => _ = ApplyFiltersAsync();
 
-    partial void OnSelectedGenreFilterChanged(string value) => ApplyFilters();
+    partial void OnSelectedGenreFilterChanged(string value) => _ = ApplyFiltersAsync();
 
-    partial void OnSelectedLanguageFilterChanged(string value) => ApplyFilters();
+    partial void OnSelectedLanguageFilterChanged(string value) => _ = ApplyFiltersAsync();
 
     [RelayCommand]
     private async Task AddTermAsync()
@@ -159,17 +159,22 @@ public partial class TermLibraryViewModel : ViewModelBase
     private async Task ReloadTermsAsync()
     {
         _allTerms = (await _termPhraseRepository.GetAllAsync()).ToList();
-        ApplyFilters();
+        await ApplyFiltersAsync();
     }
 
-    private void ApplyFilters()
+    private async Task ApplyFiltersAsync()
     {
-        var filtered = _allTerms.Where(term =>
-        {
-            var matchesSearch = string.IsNullOrWhiteSpace(SearchText)
-                || term.Content.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
-                || term.Tags.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
+        IEnumerable<TermPhraseModel> candidates = _allTerms;
 
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            var matches = await _termPhraseRepository.SearchAsync(SearchText);
+            var matchedIds = matches.Select(term => term.Id).ToHashSet();
+            candidates = _allTerms.Where(term => matchedIds.Contains(term.Id));
+        }
+
+        var filtered = candidates.Where(term =>
+        {
             var matchesCategory = SelectedCategoryFilter == AllFilterValue
                 || _categories.FirstOrDefault(category => category.Id == term.CategoryId)?.Name == SelectedCategoryFilter;
 
@@ -179,7 +184,7 @@ public partial class TermLibraryViewModel : ViewModelBase
             var matchesLanguage = SelectedLanguageFilter == AllFilterValue
                 || term.Language == SelectedLanguageFilter;
 
-            return matchesSearch && matchesCategory && matchesGenre && matchesLanguage;
+            return matchesCategory && matchesGenre && matchesLanguage;
         });
 
         Terms.Clear();

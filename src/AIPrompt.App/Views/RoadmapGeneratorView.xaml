@@ -108,7 +108,12 @@
                               Width="260" />
                 </StackPanel>
 
-                <TextBlock Text="{Binding [RoadmapGenerator_PreviewLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,8,0,8" />
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,8">
+                    <TextBlock Text="{Binding [RoadmapGenerator_PreviewLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Margin="0,0,16,0" />
+                    <Button Content="{Binding [RoadmapGenerator_PresentationMode], Source={x:Static services:Loc.Instance}}"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding EnterPresentationModeCommand}" />
+                </StackPanel>
                 <TextBox Text="{Binding PreviewMarkdown, Mode=OneWay}"
                          IsReadOnly="True"
                          FontFamily="Consolas"
@@ -137,7 +142,12 @@
 
                 <Button Content="{Binding [RoadmapGenerator_Export], Source={x:Static services:Loc.Instance}}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding ExportRoadmapCommand}" />
+                        Command="{Binding ExportRoadmapCommand}"
+                        Margin="0,0,0,8" />
+
+                <Button Content="{Binding [RoadmapGenerator_ExportPdf], Source={x:Static services:Loc.Instance}}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Command="{Binding ExportRoadmapPdfCommand}" />
             </StackPanel>
         </Grid>
     </Grid>

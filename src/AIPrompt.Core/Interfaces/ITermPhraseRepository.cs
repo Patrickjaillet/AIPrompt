@@ -15,4 +15,6 @@ public interface ITermPhraseRepository
     Task DeleteAsync(int id, CancellationToken cancellationToken = default);
 
     Task IncrementUsageAsync(int id, CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyList<TermPhraseModel>> SearchAsync(string query, CancellationToken cancellationToken = default);
 }

@@ -15,6 +15,7 @@ public partial class RoadmapGeneratorViewModel : ViewModelBase
     private readonly ITermPhraseRepository _termPhraseRepository;
     private readonly IDialogService _dialogService;
     private readonly ISettingsService _settingsService;
+    private readonly RoadmapPdfExportService _pdfExportService;
 
     [ObservableProperty]
     private string _projectName = string.Empty;
@@ -35,12 +36,14 @@ public partial class RoadmapGeneratorViewModel : ViewModelBase
         IRoadmapProjectRepository roadmapProjectRepository,
         ITermPhraseRepository termPhraseRepository,
         IDialogService dialogService,
-        ISettingsService settingsService)
+        ISettingsService settingsService,
+        RoadmapPdfExportService pdfExportService)
     {
         _roadmapProjectRepository = roadmapProjectRepository;
         _termPhraseRepository = termPhraseRepository;
         _dialogService = dialogService;
         _settingsService = settingsService;
+        _pdfExportService = pdfExportService;
 
         Phases.CollectionChanged += (_, _) => RefreshPreview();
     }
@@ -172,6 +175,35 @@ public partial class RoadmapGeneratorViewModel : ViewModelBase
         }
 
         File.WriteAllText(path, PreviewMarkdown);
+    }
+
+    [RelayCommand]
+    private void EnterPresentationMode()
+    {
+        if (Phases.Count == 0)
+        {
+            return;
+        }
+
+        var title = string.IsNullOrWhiteSpace(ProjectName) ? "Roadmap" : ProjectName;
+        _dialogService.ShowPresentationMode(title, PreviewMarkdown);
+    }
+
+    [RelayCommand]
+    private void ExportRoadmapPdf()
+    {
+        if (string.IsNullOrWhiteSpace(ProjectName) || Phases.Count == 0)
+        {
+            return;
+        }
+
+        var path = _dialogService.ShowSaveFileDialog("ROADMAP.pdf", "PDF (*.pdf)|*.pdf", _settingsService.DefaultRoadmapExportFolder);
+        if (path is null)
+        {
+            return;
+        }
+
+        _pdfExportService.Export(BuildModel(), path);
     }
 
     private void AddPhaseItem(RoadmapPhaseItemViewModel phase)

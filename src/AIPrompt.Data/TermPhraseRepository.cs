@@ -90,6 +90,58 @@ public class TermPhraseRepository : ITermPhraseRepository
         await _context.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task<IReadOnlyList<TermPhraseModel>> SearchAsync(string query, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            return await GetAllAsync(cancellationToken);
+        }
+
+        var tokens = query.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var matchQuery = string.Join(' ', tokens.Select(token => $"\"{token.Replace("\"", "\"\"")}\"*"));
+
+        var matchedIds = new List<int>();
+        var connection = _context.Database.GetDbConnection();
+        var wasClosed = connection.State != System.Data.ConnectionState.Open;
+        if (wasClosed)
+        {
+            await connection.OpenAsync(cancellationToken);
+        }
+
+        try
+        {
+            await using var command = connection.CreateCommand();
+            command.CommandText = "SELECT rowid FROM TermPhraseFts WHERE TermPhraseFts MATCH $query ORDER BY rank;";
+            var parameter = command.CreateParameter();
+            parameter.ParameterName = "$query";
+            parameter.Value = matchQuery;
+            command.Parameters.Add(parameter);
+
+            await using var reader = await command.ExecuteReaderAsync(cancellationToken);
+            while (await reader.ReadAsync(cancellationToken))
+            {
+                matchedIds.Add(reader.GetInt32(0));
+            }
+        }
+        finally
+        {
+            if (wasClosed)
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        var entities = await _context.TermPhrases
+            .Where(term => matchedIds.Contains(term.Id))
+            .ToListAsync(cancellationToken);
+
+        return matchedIds
+            .Select(id => entities.FirstOrDefault(entity => entity.Id == id))
+            .Where(entity => entity is not null)
+            .Select(entity => ToModel(entity!))
+            .ToList();
+    }
+
     private static TermPhraseModel ToModel(TermPhrase entity)
     {
         return new TermPhraseModel

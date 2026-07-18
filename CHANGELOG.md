@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-18
+
+### Added
+
+- Term packs: import/export downloadable `.json` category packs from the Import/Export tab (`ITermPackService`), creating missing categories/genres and de-duplicating terms by content within a category
+- PDF export of roadmaps (`RoadmapPdfExportService`, QuestPDF) alongside the existing Markdown export
+- Dashboard: library totals and usage statistics (most-used categories, most-used terms) via `IUsageStatsService`
+- Keyboard shortcuts in the Prompt Builder: Ctrl+S (save as template), Ctrl+Enter (generate final prompt), Ctrl+B (add free-text block)
+- Fullscreen "presentation mode" for the Markdown preview in both the Prompt Builder and the ROADMAP Generator, rendering real HTML (not just raw Markdown text) in a borderless window (Esc to close)
+- Full-text search in the term library backed by SQLite FTS5 (`TermPhraseFts` virtual table with sync triggers), replacing the previous in-memory substring filter with tokenized, indexed search across content and tags
+
 ## [1.0.0] - 2026-07-18
 
 ### Added

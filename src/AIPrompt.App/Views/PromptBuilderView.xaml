@@ -8,7 +8,13 @@
              xmlns:viewModels="clr-namespace:AIPrompt.App.ViewModels"
              xmlns:services="clr-namespace:AIPrompt.App.Services"
              mc:Ignorable="d"
+             x:Name="Root"
              d:DataContext="{d:DesignInstance Type=viewModels:PromptBuilderViewModel}">
+    <UserControl.InputBindings>
+        <KeyBinding Key="S" Modifiers="Control" Command="{Binding DataContext.SaveTemplateCommand, ElementName=Root}" />
+        <KeyBinding Key="Return" Modifiers="Control" Command="{Binding DataContext.GenerateFinalPromptCommand, ElementName=Root}" />
+        <KeyBinding Key="B" Modifiers="Control" Command="{Binding DataContext.AddFreeTextBlockCommand, ElementName=Root}" />
+    </UserControl.InputBindings>
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -60,7 +66,8 @@
                     <TextBlock Text="{Binding [PromptBuilder_AssemblyLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Margin="0,0,16,0" />
                     <Button Content="{Binding [PromptBuilder_AddFreeText], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignFlatButton}"
-                            Command="{Binding AddFreeTextBlockCommand}" />
+                            Command="{Binding AddFreeTextBlockCommand}"
+                            ToolTip="Ctrl+B" />
                 </StackPanel>
 
                 <ListBox DockPanel.Dock="Top"
@@ -96,7 +103,12 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <TextBlock DockPanel.Dock="Top" Text="{Binding [PromptBuilder_PreviewLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,16,0,8" />
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,16,0,8">
+                    <TextBlock Text="{Binding [PromptBuilder_PreviewLabel], Source={x:Static services:Loc.Instance}}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Margin="0,0,16,0" />
+                    <Button Content="{Binding [PromptBuilder_PresentationMode], Source={x:Static services:Loc.Instance}}"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding EnterPresentationModeCommand}" />
+                </StackPanel>
                 <TextBox DockPanel.Dock="Top"
                          Text="{Binding PreviewMarkdown, Mode=OneWay}"
                          IsReadOnly="True"
@@ -121,6 +133,7 @@
                     <Button Content="{Binding [PromptBuilder_SaveTemplate], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Command="{Binding SaveTemplateCommand}"
+                            ToolTip="Ctrl+S"
                             Margin="0,0,8,0" />
                     <ComboBox ItemsSource="{Binding Templates}"
                               SelectedItem="{Binding SelectedTemplateToLoad}"
@@ -133,7 +146,8 @@
                             Margin="0,0,8,0" />
                     <Button Content="{Binding [PromptBuilder_GenerateFinal], Source={x:Static services:Loc.Instance}}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
-                            Command="{Binding GenerateFinalPromptCommand}" />
+                            Command="{Binding GenerateFinalPromptCommand}"
+                            ToolTip="Ctrl+Enter" />
                 </StackPanel>
             </DockPanel>
         </Grid>

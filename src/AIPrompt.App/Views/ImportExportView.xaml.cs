@@ -11,11 +11,12 @@ public partial class ImportExportView : UserControl
         Loaded += OnLoaded;
     }
 
-    private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
+    private async void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
     {
         if (DataContext is ImportExportViewModel viewModel)
         {
             viewModel.RefreshBackupFiles();
+            await viewModel.RefreshExportPackCategoriesAsync();
         }
     }
 }
