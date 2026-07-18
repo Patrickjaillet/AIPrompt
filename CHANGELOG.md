@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc2] - 2026-07-18
+
+### Added
+
+- Windows installer `AIPromptSetup_x64.exe` built with Inno Setup 6 (`installer/AIPromptSetup.iss`): per-user install (no administrator rights required), Start Menu and optional Desktop shortcuts, custom installer icon, clean uninstall
+- `scripts/build-installer.ps1`: publishes `AIPrompt.App` as a self-contained win-x64 build (zero .NET runtime dependency for the end user) and compiles it into the installer in one step, always stamped with the current `VERSION`
+- Installation instructions in `README.md`
+
 ## [1.0.0-rc1] - 2026-07-18
 
 ### Added

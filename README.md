@@ -32,7 +32,11 @@ L'application s'organise en 8 modules accessibles depuis le rail de navigation p
 
 ## Installation
 
-_À venir — l'installeur Windows sera publié à partir de la version `1.0.0-rc2`._
+1. Téléchargez `AIPromptSetup_x64.exe` depuis la [dernière release GitHub](https://github.com/Patrickjaillet/AIPrompt/releases).
+2. Lancez l'installeur (installation par utilisateur, aucun droit administrateur requis) et suivez l'assistant.
+3. Lancez `AIPrompt` depuis le menu Démarrer ou le raccourci Bureau (optionnel).
+
+Compatible Windows 10 et Windows 11 (x64), aucune dépendance externe requise (build self-contained .NET 8).
 
 ## Captures d'écran
 

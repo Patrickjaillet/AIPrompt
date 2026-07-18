@@ -36,6 +36,10 @@ ROADMAP.md
 # Inno Setup output
 installer/Output/
 
+# Local publish & installer build artifacts
+/publish/
+/dist/
+
 # OS files
 Thumbs.db
 .DS_Store
